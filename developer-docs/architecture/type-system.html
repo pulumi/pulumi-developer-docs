@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pulumi Type System &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer-docs/architecture/type-system';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../docs/README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/writing.html">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/developer-docs/architecture/type-system.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pulumi Type System</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-types">Primitive Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assets-and-archives">Assets and Archives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-references">Resource References</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">Object Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promise-t"><code class="docutils literal notranslate"><span class="pre">Promise&lt;T&gt;</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-t"><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unknowns">Unknowns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secrets">Secrets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-t"><code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inputshape-t"><code class="docutils literal notranslate"><span class="pre">inputShape(T)</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputshape-t"><code class="docutils literal notranslate"><span class="pre">outputShape(T)</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plainshape-t"><code class="docutils literal notranslate"><span class="pre">plainShape(T)</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-t-combinators"><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> Combinators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-t-u-v-output-t-f-t-u-output-u"><code class="docutils literal notranslate"><span class="pre">apply&lt;T,</span> <span class="pre">U&gt;(v:</span> <span class="pre">Output&lt;T&gt;,</span> <span class="pre">f:</span> <span class="pre">(T)</span> <span class="pre">=&gt;</span> <span class="pre">U):</span> <span class="pre">Output&lt;U&gt;</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unwrap-t-v-output-output-t-output-t"><code class="docutils literal notranslate"><span class="pre">unwrap&lt;T&gt;(v:</span> <span class="pre">Output&lt;Output&lt;T&gt;&gt;):</span> <span class="pre">Output&lt;T&gt;</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#all-t0-tn-t0-output-t0-tn-output-tn-output-plainshape-tuple-t0-tn"><code class="docutils literal notranslate"><span class="pre">all&lt;T0</span> <span class="pre">...</span> <span class="pre">TN&gt;(t0:</span> <span class="pre">Output&lt;T0&gt;,</span> <span class="pre">...</span> <span class="pre">tn:</span> <span class="pre">Output&lt;TN&gt;):</span> <span class="pre">Output&lt;plainShape(Tuple&lt;T0</span> <span class="pre">...</span> <span class="pre">TN&gt;)&gt;</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pulumi-type-system">
+<h1>Pulumi Type System<a class="headerlink" href="#pulumi-type-system" title="Link to this heading">#</a></h1>
+<p>In its role as a broker of information between various actors–e.g. language SDKs,
+resource providers, multi-language components, and statefiles–and in its role as a
+programming model, it is important that Pulumi deals in values with well-defined
+semantics. The <em>Pulumi type system</em> specifies these semantics. It is the responsibility of
+each language SDK and interchange format to ensure that these semantics are faithfully
+implemented, ideally in as idiomatic a fashion as possible.</p>
+<p>Note that this document describes the abstract type system rather than describing its
+implementations. As long as implementations faithfully implement the semantics described by
+this document, they may choose to provide simpler APIs/shorthands/etc. for the various
+types and combinators. For example, the SDK for a language that natively supports
+operations on <a class="reference internal" href="#outputt"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code></span></a> values may not expose <a class="reference internal" href="#outputt"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code></span></a> types
+and combinators to the user at all.</p>
+<section id="primitive-types">
+<h2>Primitive Types<a class="headerlink" href="#primitive-types" title="Link to this heading">#</a></h2>
+<p>The core primitives of the Pulumi type system form a superset of the JSON type system, and
+supports the following types:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Null</span></code>, which represents the lack of a value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code>, which represents a boolean value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Number</span></code>, which represents an IEEE-754 double-precision number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">String</span></code>, which represents a sequence of UTF-8 encoded unicode code points</p></li>
+<li><p><a class="reference internal" href="#assets-and-archives"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Asset</span></code></span></a>, which represents a blob</p></li>
+<li><p><a class="reference internal" href="#assets-and-archives"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Archive</span></code></span></a>, which represents a map from strings to <code class="docutils literal notranslate"><span class="pre">Asset</span></code>s or
+<code class="docutils literal notranslate"><span class="pre">Archive</span></code>s</p></li>
+<li><p><a class="reference internal" href="#resource-references"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ResourceReference</span></code></span></a>, which represents a reference to a resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tuple&lt;T0,</span> <span class="pre">T1,</span> <span class="pre">...</span> <span class="pre">TN&gt;</span></code>, which represents a tuple of heterogenously-typed values. Note
+that this type mainly exists for the purpose of writing the signature for <a class="reference internal" href="#allt0--tnt0-outputt0--tn-outputtn-outputplainshapetuplet0--tn"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">all</span></code></span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Array&lt;T&gt;</span></code>, which represents a numbered sequence of values of a particular type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Map&lt;T&gt;</span></code>, which represents an unordered mapping from strings to values of a particular
+type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Union&lt;T0,</span> <span class="pre">T1</span> <span class="pre">...</span> <span class="pre">TN&gt;</span></code>, which represents a value of one of a fixed set of types</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Enum&lt;T,</span> <span class="pre">V0</span> <span class="pre">...</span> <span class="pre">VN&gt;</span></code>, which represents one of a fixed set of values of a particular type</p></li>
+</ul>
+<section id="assets-and-archives">
+<h3>Assets and Archives<a class="headerlink" href="#assets-and-archives" title="Link to this heading">#</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">Asset</span></code> or <code class="docutils literal notranslate"><span class="pre">Archive</span></code> may contain either literal data or a reference to a local file
+located via its path or a local or remote file located via its URL.</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">Asset</span></code>s, the literal data is a textual string, and the referenced file
+is an opaque blob.</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">Archive</span></code>s, the literal data is a map from strings to <code class="docutils literal notranslate"><span class="pre">Asset</span></code>s or <code class="docutils literal notranslate"><span class="pre">Archive</span></code>s,
+and the referenced file is a TAR archive, gzipped TAR archive, or ZIP archive.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">Asset</span></code> or <code class="docutils literal notranslate"><span class="pre">Archive</span></code> also carries the SHA-256 hash of its contents. This hash can be
+used to uniquely identify the asset (e.g. for locally caching <code class="docutils literal notranslate"><span class="pre">Asset</span></code> or <code class="docutils literal notranslate"><span class="pre">Archive</span></code>
+contents).</p>
+</section>
+<section id="resource-references">
+<h3>Resource References<a class="headerlink" href="#resource-references" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">ResourceReference</span></code> represents a reference to a resource. Although
+all that is necessary to uniquely identify a resource within the context of a stack is its
+URN, a <code class="docutils literal notranslate"><span class="pre">ResourceReference</span></code> also carries the resource’s ID (if it is not a component) and
+the version of the provider that manages the resource. If the contents of the referenced
+resource must be inspected, the reference must be resolved by invoking the <code class="docutils literal notranslate"><span class="pre">getResource</span></code>
+function of the engine’s builtin provider. Note that this is only possible if there is a
+connection to the engine’s resource monitor, e.g. within the scope of a call to <code class="docutils literal notranslate"><span class="pre">Construct</span></code>.
+This implies that resource references may not be resolved within calls to other
+provider methods. Therefore, configuration values, custom resources and provider functions
+should not rely on the ability to resolve resource references, and should instead treat
+resource references  as either their ID (if present) or URN. If the ID is present and
+empty, it should be treated as an <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>.</p>
+</section>
+</section>
+<section id="object-types">
+<h2>Object Types<a class="headerlink" href="#object-types" title="Link to this heading">#</a></h2>
+<p>Object types are defined as mapping from property names to property types. Duplicate
+property names are not allowed, and each property name maps to a single type.</p>
+</section>
+<section id="promise-t">
+<h2><code class="docutils literal notranslate"><span class="pre">Promise&lt;T&gt;</span></code><a class="headerlink" href="#promise-t" title="Link to this heading">#</a></h2>
+<p>A value of type <code class="docutils literal notranslate"><span class="pre">Promise&lt;T&gt;</span></code> represents the result of an asynchronous computation. Note
+that although computations may fail, failures cannot be handled at runtime, and cause a
+hard stop when attempting to access a <code class="docutils literal notranslate"><span class="pre">Promise&lt;T&gt;</span></code>’s concrete value.</p>
+</section>
+<section id="output-t">
+<h2><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code><a class="headerlink" href="#output-t" title="Link to this heading">#</a></h2>
+<p>Perhaps the most important type in the Pulumi type system is <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code>. A value of type
+<code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> represents a node in a Pulumi program graph, and behaves like a <code class="docutils literal notranslate"><span class="pre">Promise&lt;T&gt;</span></code>
+that carries additional metadata that describes the resources on which the value depends,
+whether the value is known or unknown, and whether or not the value is secret.</p>
+<section id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h3>
+<p>If an <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> value is the result of a resource operation–e.g. if it is an output
+property of some resource–it is said to <em>depend</em> on that resource.</p>
+<p>If a value of type <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> depends on a resource <code class="docutils literal notranslate"><span class="pre">R</span></code>, the result of any computation
+that depends on its concrete value also depends on <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p>
+</section>
+<section id="unknowns">
+<h3>Unknowns<a class="headerlink" href="#unknowns" title="Link to this heading">#</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> may be unknown if it depends on the result of a resource operation that
+will not be run because it is part of a <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">preview</span></code>. Previews typically produce
+unknowns for properties with values that cannot be determined until the resource is
+actually created or updated.</p>
+<p>If a value of type <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> is unknown, any computation that depends on its concrete
+value must not run, and must instead produce an unknown <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code>.</p>
+</section>
+<section id="secrets">
+<h3>Secrets<a class="headerlink" href="#secrets" title="Link to this heading">#</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> may be marked as secret if its concrete value contains sensitive
+information.</p>
+<p>If a value of type <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> is secret, the result of any computation that depends on
+its concrete value must also be secret.</p>
+</section>
+</section>
+<section id="input-t">
+<h2><code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code><a class="headerlink" href="#input-t" title="Link to this heading">#</a></h2>
+<p>The partner of <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> is <code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code>, which is defined as <code class="docutils literal notranslate"><span class="pre">Union&lt;T,</span> <span class="pre">Output&lt;T&gt;&gt;</span></code>. In
+simpler terms, a location of type <code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code> may accept either a plain old <code class="docutils literal notranslate"><span class="pre">T</span></code> value or an
+<code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> value.</p>
+</section>
+<section id="inputshape-t">
+<h2><code class="docutils literal notranslate"><span class="pre">inputShape(T)</span></code><a class="headerlink" href="#inputshape-t" title="Link to this heading">#</a></h2>
+<p>Although <code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code> gives us the ability to deal in both <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> values, it is
+often the case that we want to construct <em>composite</em> values out of multiple <code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code>s.
+For example, consider <code class="docutils literal notranslate"><span class="pre">Input&lt;Array&lt;string&gt;&gt;</span></code>: a value of this type accepts either a
+<code class="docutils literal notranslate"><span class="pre">Array&lt;string&gt;</span></code> or an <code class="docutils literal notranslate"><span class="pre">Output&lt;Array&lt;string&gt;&gt;</span></code>, but does not accept a value of type
+<code class="docutils literal notranslate"><span class="pre">Array&lt;Output&lt;string&gt;&gt;</span></code>. In order to accept all three of these types, we need the type
+<code class="docutils literal notranslate"><span class="pre">Input&lt;Array&lt;Input&lt;string&gt;&gt;&gt;&gt;</span></code>. The <code class="docutils literal notranslate"><span class="pre">inputShape</span></code> type function defines an algorithm
+for producing these sorts of types.</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span><span class="w"> </span><span class="nf">inputShape</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">match</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Tuple</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">inputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">inputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Union</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Promise</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Object</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">P</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span><span class="o">&gt;&gt;</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we expand <code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code> into its underlying type, <code class="docutils literal notranslate"><span class="pre">Union&lt;T,</span> <span class="pre">Output&lt;T&gt;&gt;</span></code>, the types may be
+clearer:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span><span class="w"> </span><span class="nf">inputShape</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">match</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Tuple</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">inputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">inputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">inputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">inputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Union</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Promise</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Object</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">P</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">inputShape</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span><span class="o">&gt;&gt;&gt;</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Resource input properties often use input-shaped types.</p>
+</section>
+<section id="outputshape-t">
+<h2><code class="docutils literal notranslate"><span class="pre">outputShape(T)</span></code><a class="headerlink" href="#outputshape-t" title="Link to this heading">#</a></h2>
+<p>Because the <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> metadata (<a class="reference internal" href="#dependencies"><span class="xref myst">dependencies</span></a>, <a class="reference internal" href="#unknowns"><span class="xref myst">unknowns</span></a>, and <a class="reference internal" href="#secrets"><span class="xref myst">secrets</span></a>) only applies
+to a single value, it is necessary to represent composite metadata using nested <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code>
+types. Consider a variant of the <code class="docutils literal notranslate"><span class="pre">Array&lt;string&gt;</span></code> example from <a class="reference internal" href="#inputshapet"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">inputShape(T)</span></code></span></a>:
+in order to produce an array where each element may be an output, we need to use the type
+<code class="docutils literal notranslate"><span class="pre">Output&lt;Array&lt;Output&lt;string&gt;&gt;&gt;</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">outputShape</span></code> type function defines an algorithm for producing these sorts of values.</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span><span class="w"> </span><span class="nf">outputShape</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">match</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Tuple</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">outputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">outputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">outputShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Union</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">outputShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Promise</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Object</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">P</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Output</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">outputShape</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span><span class="o">&gt;&gt;</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Resource output properties often use output-shaped types.</p>
+<p>Projecting output-shaped is a bit unwieldy, as values of these types often require a great
+deal of unwrapping as nesting depth increases.</p>
+<p>Instead of projecting these types in their fully-elaborated form, the various language SDKs
+tend to opt to project them as a simple <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> while using an internal representation
+for the concrete value that includes distinguished unknown values. This approach lets the
+SDKs to allow e.g. lifted property and element access into partially-known composite
+values. For example, the Node SDK will allow the user to access an element of an
+<code class="docutils literal notranslate"><span class="pre">Output&lt;[]string&gt;</span></code> via a proxied index operator even if some elements of the array are
+unknown, though it will not allow the user to access the entire value via <code class="docutils literal notranslate"><span class="pre">apply</span></code>.</p>
+</section>
+<section id="plainshape-t">
+<h2><code class="docutils literal notranslate"><span class="pre">plainShape(T)</span></code><a class="headerlink" href="#plainshape-t" title="Link to this heading">#</a></h2>
+<p>The final type function, <code class="docutils literal notranslate"><span class="pre">plainShape(T)</span></code>, replaces <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> types with their type
+argument:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span><span class="w"> </span><span class="nf">plainShape</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">match</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">T</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Tuple</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Tuple</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">plainShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="n">plainShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">plainShape</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Union</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Union</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">plainShape</span><span class="p">(</span><span class="n">u</span><span class="p">)),</span>
+<span class="w">		</span><span class="n">Promise</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">U</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Output</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">U</span><span class="p">,</span>
+<span class="w">		</span><span class="n">Object</span><span class="o">&lt;..</span><span class="p">.</span><span class="n">P</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Object</span><span class="o">&lt;</span><span class="n">map</span><span class="p">(</span><span class="o">..</span><span class="p">.</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">plainShape</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This function is primarily useful for describing the signature of the <a class="reference internal" href="#allt0--tnt0-outputt0--tn-outputtn-outputplainshapetuplet0--tn"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">all</span></code></span></a> combinator.</p>
+</section>
+<section id="output-t-combinators">
+<h2><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> Combinators<a class="headerlink" href="#output-t-combinators" title="Link to this heading">#</a></h2>
+<p>The rules described for working with <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> metadata–<a class="reference internal" href="#dependencies"><span class="xref myst">dependencies</span></a>, <a class="reference internal" href="#unknowns"><span class="xref myst">unknowns</span></a>, and
+<a class="reference internal" href="#secrets"><span class="xref myst">secrets</span></a>–require special bookkeeping on the part of the consumer. There are three
+primitive combinators that aid in this bookkeeping: <a class="reference internal" href="#applyt-uv-outputt-f-t--u-outputu"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">apply</span></code></span></a>, <a class="reference internal" href="#allt0--tnt0-outputt0--tn-outputtn-outputplainshapetuplet0--tn"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">all</span></code></span></a>, and <a class="reference internal" href="#unwraptv-outputoutputt-outputt"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">unwrap</span></code></span></a>.</p>
+<section id="apply-t-u-v-output-t-f-t-u-output-u">
+<h3><code class="docutils literal notranslate"><span class="pre">apply&lt;T,</span> <span class="pre">U&gt;(v:</span> <span class="pre">Output&lt;T&gt;,</span> <span class="pre">f:</span> <span class="pre">(T)</span> <span class="pre">=&gt;</span> <span class="pre">U):</span> <span class="pre">Output&lt;U&gt;</span></code><a class="headerlink" href="#apply-t-u-v-output-t-f-t-u-output-u" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">apply</span></code> API allows its caller to access the concrete value of an <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> within
+the context of a caller-supplied callback.</p>
+<p><code class="docutils literal notranslate"><span class="pre">apply</span></code> trivially obeys the <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> rules for <a class="reference internal" href="#dependencies"><span class="xref myst">dependencies</span></a>, <a class="reference internal" href="#unknowns"><span class="xref myst">unknowns</span></a>, and
+<a class="reference internal" href="#secrets"><span class="xref myst">secrets</span></a>:</p>
+<ul class="simple">
+<li><p>the dependencies of the <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> argument are propagated to the result</p></li>
+<li><p>if the <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> argument is unknown, the callback is not run and the result is unknown</p></li>
+<li><p>if the <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> argument is secret, the result is secret</p></li>
+</ul>
+<p>Note that the argument for <code class="docutils literal notranslate"><span class="pre">U</span></code> may itself be an <code class="docutils literal notranslate"><span class="pre">Output&lt;V&gt;</span></code>, in which case the return type
+of <code class="docutils literal notranslate"><span class="pre">apply</span></code> will be <code class="docutils literal notranslate"><span class="pre">Output&lt;Output&lt;V&gt;&gt;</span></code>. The result can be unwrapped using the <a class="reference internal" href="#unwraptv-outputoutputt-outputt"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">unwrap</span></code></span></a>
+combinator. A language SDK may opt to automatically unwrap such values
+if its type system is flexible enough to express the unwrapping.</p>
+<p>This API is morally equivalent to Javascript’s <code class="docutils literal notranslate"><span class="pre">Promise.then</span></code> API, but with <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code>s in
+the place of <code class="docutils literal notranslate"><span class="pre">Promise&lt;&gt;</span></code>s:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">Output</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">public</span><span class="w"> </span><span class="nx">apply</span><span class="o">&lt;</span><span class="nx">U</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">func</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">t</span><span class="o">:</span><span class="w"> </span><span class="kt">T</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">U</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Output</span><span class="o">&lt;</span><span class="nx">U</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="p">...</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="unwrap-t-v-output-output-t-output-t">
+<h3><code class="docutils literal notranslate"><span class="pre">unwrap&lt;T&gt;(v:</span> <span class="pre">Output&lt;Output&lt;T&gt;&gt;):</span> <span class="pre">Output&lt;T&gt;</span></code><a class="headerlink" href="#unwrap-t-v-output-output-t-output-t" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">unwrap</span></code> API transforms an <code class="docutils literal notranslate"><span class="pre">Output&lt;Output&lt;T&gt;&gt;</span></code> into an <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> according to the
+<code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> rules for <a class="reference internal" href="#dependencies"><span class="xref myst">dependencies</span></a>, <a class="reference internal" href="#unknowns"><span class="xref myst">unknowns</span></a>, and <a class="reference internal" href="#secrets"><span class="xref myst">secrets</span></a>:</p>
+<ul class="simple">
+<li><p>the result’s dependencies are the union of the outer and inner <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code>s’ dependencies</p></li>
+<li><p>if either the outer or inner <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code> is unknown, the result is unknowns</p></li>
+<li><p>if either the outer or inner <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code> is secret, the result is secret</p></li>
+</ul>
+<p>If its type system is flexible enough, a language SDK may choose to omit a public-facing
+<code class="docutils literal notranslate"><span class="pre">unwrap</span></code> API in favor of automatically unwrapping nested <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code>s.</p>
+</section>
+<section id="all-t0-tn-t0-output-t0-tn-output-tn-output-plainshape-tuple-t0-tn">
+<h3><code class="docutils literal notranslate"><span class="pre">all&lt;T0</span> <span class="pre">...</span> <span class="pre">TN&gt;(t0:</span> <span class="pre">Output&lt;T0&gt;,</span> <span class="pre">...</span> <span class="pre">tn:</span> <span class="pre">Output&lt;TN&gt;):</span> <span class="pre">Output&lt;plainShape(Tuple&lt;T0</span> <span class="pre">...</span> <span class="pre">TN&gt;)&gt;</span></code><a class="headerlink" href="#all-t0-tn-t0-output-t0-tn-output-tn-output-plainshape-tuple-t0-tn" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">all</span></code> API combines multiple heterogenous outputs into a single unwrapped tuple output.
+The metadata from the arguments is combined as per the <code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> rules for <a class="reference internal" href="#dependencies"><span class="xref myst">dependencies</span></a>,
+<a class="reference internal" href="#unknowns"><span class="xref myst">unknowns</span></a>, and <a class="reference internal" href="#secrets"><span class="xref myst">secrets</span></a>:</p>
+<ul class="simple">
+<li><p>the result of <code class="docutils literal notranslate"><span class="pre">all</span></code> depends on the union of the dependencies of its <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code> arguments</p></li>
+<li><p>if any of the <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code> arguments is unknown, the result is unknown</p></li>
+<li><p>if any of the <code class="docutils literal notranslate"><span class="pre">Output&lt;&gt;</span></code> arguments is secret, the result is secret</p></li>
+</ul>
+<p>For example, here is a simplified version of the signature for the Typescript
+implementation of <code class="docutils literal notranslate"><span class="pre">all</span></code>:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">all</span><span class="o">&lt;</span><span class="nx">T1</span><span class="p">,</span><span class="w"> </span><span class="nx">T2</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">Output</span><span class="o">&lt;</span><span class="nx">T1</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nx">Output</span><span class="o">&lt;</span><span class="nx">T2</span><span class="o">&gt;</span><span class="p">])</span><span class="o">:</span><span class="w"> </span><span class="nx">Output</span><span class="o">&lt;</span><span class="p">[</span><span class="nx">Unwrap</span><span class="o">&lt;</span><span class="nx">T1</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nx">Unwrap</span><span class="o">&lt;</span><span class="nx">T2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>As in <a class="reference internal" href="#applyt-uv-outputt-f-t--u-outputu"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">apply</span></code></span></a>, nested outputs must be unwrapped prior to use, though SDKs may choose to
+automatically unwrap if their type system can accommodate the typing.</p>
+<p>A variant of <code class="docutils literal notranslate"><span class="pre">all</span></code> for <code class="docutils literal notranslate"><span class="pre">Object</span></code>s is also possible:</p>
+<p><code class="docutils literal notranslate"><span class="pre">all&lt;Object&lt;...P&gt;&gt;(v:</span> <span class="pre">Object&lt;...P&gt;):</span> <span class="pre">Output&lt;plainShape(Object&lt;...P&gt;)&gt;</span></code></p>
+<p>This variant treats the object as a tuple of key/value pairs.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-types">Primitive Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assets-and-archives">Assets and Archives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-references">Resource References</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-types">Object Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promise-t"><code class="docutils literal notranslate"><span class="pre">Promise&lt;T&gt;</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-t"><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unknowns">Unknowns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secrets">Secrets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-t"><code class="docutils literal notranslate"><span class="pre">Input&lt;T&gt;</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inputshape-t"><code class="docutils literal notranslate"><span class="pre">inputShape(T)</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputshape-t"><code class="docutils literal notranslate"><span class="pre">outputShape(T)</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plainshape-t"><code class="docutils literal notranslate"><span class="pre">plainShape(T)</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-t-combinators"><code class="docutils literal notranslate"><span class="pre">Output&lt;T&gt;</span></code> Combinators</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-t-u-v-output-t-f-t-u-output-u"><code class="docutils literal notranslate"><span class="pre">apply&lt;T,</span> <span class="pre">U&gt;(v:</span> <span class="pre">Output&lt;T&gt;,</span> <span class="pre">f:</span> <span class="pre">(T)</span> <span class="pre">=&gt;</span> <span class="pre">U):</span> <span class="pre">Output&lt;U&gt;</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unwrap-t-v-output-output-t-output-t"><code class="docutils literal notranslate"><span class="pre">unwrap&lt;T&gt;(v:</span> <span class="pre">Output&lt;Output&lt;T&gt;&gt;):</span> <span class="pre">Output&lt;T&gt;</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#all-t0-tn-t0-output-t0-tn-output-tn-output-plainshape-tuple-t0-tn"><code class="docutils literal notranslate"><span class="pre">all&lt;T0</span> <span class="pre">...</span> <span class="pre">TN&gt;(t0:</span> <span class="pre">Output&lt;T0&gt;,</span> <span class="pre">...</span> <span class="pre">tn:</span> <span class="pre">Output&lt;TN&gt;):</span> <span class="pre">Output&lt;plainShape(Tuple&lt;T0</span> <span class="pre">...</span> <span class="pre">TN&gt;)&gt;</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

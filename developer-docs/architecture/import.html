@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Importing Resources &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer-docs/architecture/import';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../docs/README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/writing.html">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/developer-docs/architecture/import.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Importing Resources</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-resource-option"><code class="docutils literal notranslate"><span class="pre">import</span></code> resource option</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-note">Technical Note</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pulumi-import"><code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">import</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="importing-resources">
+<h1>Importing Resources<a class="headerlink" href="#importing-resources" title="Link to this heading">#</a></h1>
+<p>There are a variety of scenarios that require the ability for users to import existing
+resources for management by Pulumi. For example:</p>
+<ul class="simple">
+<li><p>Migrating from manually-managed resources to IaC</p></li>
+<li><p>Migrating from other IaC platforms to Pulumi</p></li>
+<li><p>Migrating resources between Pulumi stacks</p></li>
+</ul>
+<p>At a minimum, importing a resource involves adding the resource’s state to the destination
+stack’s statefile. Once the resource has been added to the stack, the Pulumi CLI is able
+to manage the resource like any other. In order to do anything besides delete the resource,
+however, the user must also add a definition for the resource to their Pulumi program.</p>
+<p>Both of the import approaches used by Pulumi aim to prevent the accidental modification or
+deletion of a resource being imported. Though the user experiences of these approaches are
+quite different, they share a common principle: at the point at which a resource is
+successfully imported, the stack’s Pulumi program must contain a definition for the
+resource that accurately describes its current state (i.e. there are no differences
+between the state described in the program and the actual state of the imported resource).</p>
+<section id="import-resource-option">
+<h2><code class="docutils literal notranslate"><span class="pre">import</span></code> resource option<a class="headerlink" href="#import-resource-option" title="Link to this heading">#</a></h2>
+<p>The oldest method supported of importing resources into a stack is the <a class="reference external" href="https://www.pulumi.com/docs/intro/concepts/resources/#import" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">import</span></code></a>
+<a class="reference external" href="https://www.pulumi.com/docs/intro/concepts/resources/#options" rel="noreferer noopener" target="_blank">resource option</a>. When set,
+this option specifies the ID of an existing resource to import into the stack. The exact
+behavior of this option depends on the current state of the resource within the destination
+stack:</p>
+<ol class="arabic simple">
+<li><p>If the resource does not exist, it is imported</p></li>
+<li><p>If the resource exists and has the same <code class="docutils literal notranslate"><span class="pre">ID</span></code> or <code class="docutils literal notranslate"><span class="pre">ImportID</span></code>, the resource is treated
+like any other resource</p></li>
+<li><p>Otherwise, the current resource is deleted and replaced by importing the resource with
+the specified ID</p></li>
+</ol>
+<p>The trickiest of these three situations is (2). This state transition is intended to allow
+users to import a resource and then continue to make changes to their program without
+requiring that they remove the resource option. For example, this allows a user to import
+a resource in one <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">up</span></code>, then successfully run another <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">up</span></code> without removing
+the <code class="docutils literal notranslate"><span class="pre">import</span></code> option from their program and without attempting to import the resource a
+second time.</p>
+<p>As mentioned in <a class="reference internal" href="#importing-resources"><span class="xref myst">the introduction</span></a>, the <code class="docutils literal notranslate"><span class="pre">import</span></code> resource option
+requires that the desired state described by Pulumi program for a resource being imported
+matches the actual state of the resource as returned by the provider. More precisely,
+given a resource <code class="docutils literal notranslate"><span class="pre">R</span></code> of type <code class="docutils literal notranslate"><span class="pre">T</span></code> with  import ID <code class="docutils literal notranslate"><span class="pre">X</span></code> and the resource inputs present in the
+Pulumi program <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code>, the engine performs the following sequence of operations:</p>
+<ol class="arabic simple">
+<li><p>Fetch the current inputs <code class="docutils literal notranslate"><span class="pre">Iₐ</span></code> and state <code class="docutils literal notranslate"><span class="pre">Sₐ</span></code> for the resource of type <code class="docutils literal notranslate"><span class="pre">T</span></code> with ID <code class="docutils literal notranslate"><span class="pre">X</span></code>
+from its provider by calling the provider’s <a class="reference internal" href="#providers/implementers-guide.md#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code> method</span></a>.
+If the provider does not return a value for <code class="docutils literal notranslate"><span class="pre">Iₐ</span></code>, the provider does not support
+importing resources and the import fails.</p></li>
+<li><p>Process the <a class="reference external" href="https://www.pulumi.com/docs/intro/concepts/resources/#import" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">ignoreChanges</span></code> resource option</a>
+by copying the value for any ignored input property from <code class="docutils literal notranslate"><span class="pre">Iₐ</span></code> to <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code>.</p></li>
+<li><p>Validate the resource’s inputs and apply any programmatic defaults by passing <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Iₐ</span></code> to the provider’s <a class="reference internal" href="#providers/implementers-guide.md#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code> method</span></a>. Let
+<code class="docutils literal notranslate"><span class="pre">Iₖ</span></code> be the checked inputs; these inputs form the resource’s desired state.</p></li>
+<li><p>Check for differences between <code class="docutils literal notranslate"><span class="pre">Iₖ</span></code> and <code class="docutils literal notranslate"><span class="pre">Sₐ</span></code> by calling the provider’s <a class="reference internal" href="#providers/implementers-guide.md#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code> method</span></a>.
+If the provider reports any differences, the import either succeeds with a warning (in
+the case of a preview) or fails with an error (in the case of an update).</p></li>
+</ol>
+<p>If all of these steps succeed, the user is left with a definition for <code class="docutils literal notranslate"><span class="pre">R</span></code> in their Pulumi
+program and the statefile of the updated stack that do not differ.</p>
+<section id="technical-note">
+<h3>Technical Note<a class="headerlink" href="#technical-note" title="Link to this heading">#</a></h3>
+<p>Although the “no diffs” requirement is intended to prevent surprise, it also accommodates
+a technical limitation of the Pulumi engine. In order to actually perform the diff–an
+operation that is required whether or not the user is permitted to describe a desired
+state for the imported resource that differs from its actual state–the engine must fetch
+the resource’s current imports and state from its provider. In order for this state to
+affect the steps the engine issues for the resources, the state would need to be fetched
+during or prior to the point at which the resource’s registration reaches the <a class="reference internal" href="resource-registration.html#the-step-generator"><span class="std std-ref">step
+generator</span></a>. In the former case, this would
+cause the engine to spend an unacceptable amount of time in the step generator, as it
+processes resource registrations serially. In the latter case, the user experience would
+likely be negatively affected by a lack of output from the Pulumi CLI, which only displays
+the status of <a class="reference internal" href="resource-registration.html#the-step-generator"><span class="std std-ref">steps</span></a>. In order to address
+these issues, the operations described above happen in a dedicated <code class="docutils literal notranslate"><span class="pre">ImportStep</span></code> that is
+run by the <a class="reference internal" href="resource-registration.html#the-step-executor"><span class="std std-ref">step executor</span></a>.</p>
+<p><img alt="Import diagram" src="../../_images/import.svg" /></p>
+</section>
+</section>
+<section id="pulumi-import">
+<h2><code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">import</span></code><a class="headerlink" href="#pulumi-import" title="Link to this heading">#</a></h2>
+<p>The second, newer method of importing resources into a stack is the <a class="reference external" href="https://www.pulumi.com/docs/cli/commands/pulumi_import/" rel="noreferer noopener" target="_blank"><code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">import</span></code>
+command</a>. This command accepts a
+list of import specs to import, imports the resources into the destination stack, and
+generates definitions for the resources in the language used by the stack’s Pulumi program.
+Each import spec is at least a type token, name, and ID, but may also specify a parent URN,
+provider reference, and package version.</p>
+<p>During a <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">import</span></code>, given a resource <code class="docutils literal notranslate"><span class="pre">R</span></code> of type <code class="docutils literal notranslate"><span class="pre">T</span></code> with import ID X and an empty
+set of input properties <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code>, the engine performs the following sequence of operations:</p>
+<ol class="arabic simple">
+<li><p>Fetch the current inputs <code class="docutils literal notranslate"><span class="pre">Iₐ</span></code> and state <code class="docutils literal notranslate"><span class="pre">Sₐ</span></code> for the resource of type <code class="docutils literal notranslate"><span class="pre">T</span></code> with ID <code class="docutils literal notranslate"><span class="pre">X</span></code>
+from its provider by calling the provider’s <a class="reference internal" href="#providers/implementers-guide.md#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code> method</span></a>.
+If the provider does not return a value for <code class="docutils literal notranslate"><span class="pre">Iₐ</span></code>, the provider does not support
+importing resources and the import fails.</p></li>
+<li><p>Fetch the schema for resources of type <code class="docutils literal notranslate"><span class="pre">T</span></code> from the provider. If the provider is not
+schematized or if <code class="docutils literal notranslate"><span class="pre">T</span></code> has no schema, the import fails.</p></li>
+<li><p>Copy the value of each required input property defined in the schema for <code class="docutils literal notranslate"><span class="pre">T</span></code> from <code class="docutils literal notranslate"><span class="pre">Iₐ</span></code>
+to <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code>.</p></li>
+<li><p>Validate the resource’s inputs and apply any programmatic defaults by passing <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Iₐ</span></code> to the provider’s <a class="reference internal" href="#providers/implementers-guide.md#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code> method</span></a>. Let
+<code class="docutils literal notranslate"><span class="pre">Iₖ</span></code> be the checked inputs; these inputs form the resource’s desired state.</p></li>
+<li><p>Check for differences between <code class="docutils literal notranslate"><span class="pre">Iₖ</span></code> and <code class="docutils literal notranslate"><span class="pre">Sₐ</span></code> by calling the provider’s <a class="reference internal" href="#providers/implementers-guide.md#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code> method</span></a>.
+If the provider reports any differences, the values of the differing properties are
+copied from <code class="docutils literal notranslate"><span class="pre">Sₐ</span></code> to <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code>. This is intended to produce the smallest valid set of inputs
+necessary to avoid diffs. This does not use a fixed-point algorithm because there is no
+guarantee that the values copied from <code class="docutils literal notranslate"><span class="pre">Sₐ</span></code> are in fact valid (state and inputs with the
+same property paths may have different types and validation rules) and there is no
+guarantee that such an algorithm would terminate (TF bridge providers have had bugs that
+cause persistent diffs, which can only be worked around with <code class="docutils literal notranslate"><span class="pre">ignoreChanges</span></code>).</p></li>
+</ol>
+<p>If all of these steps succeed, the user is left with a definition for <code class="docutils literal notranslate"><span class="pre">R</span></code> in the statefile
+of the updated stack that do not differ. The Pulumi CLI then passes the inputs <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code> stored
+in the statefile to the import code generator. The import code generator converts the values
+present in <code class="docutils literal notranslate"><span class="pre">Iₚ</span></code> into an equivalent PCL representation of <code class="docutils literal notranslate"><span class="pre">R</span></code>’s desired state, then passes
+the PCL to a language-specific code generator to emit a representation of <code class="docutils literal notranslate"><span class="pre">R</span></code>’s desired
+state in the language used by the destination stack’s Pulumi program. The user can then
+copy the generated definition into their Pulumi program.</p>
+<p>Graphically, the import process looks something like this:</p>
+<p><img alt=" diagram" src="../../_images/pulumi-import.svg" /></p>
+<section id="challenges">
+<h3>Challenges<a class="headerlink" href="#challenges" title="Link to this heading">#</a></h3>
+<p>The primary challenge in generating appropriate code for <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">import</span></code> lies in
+determining exactly what the input values for a particular resource should be. In many
+providers, it is not necessarily possible to accurately recover a resource’s inputs from
+its state. This observation led to the diff-oriented approach described above, where the
+importer begins with an extremely minimal set of inputs and attempts to derive the actual
+inputs from the results of a call to the provider’s <a class="reference internal" href="#providers/implementers-guide.md#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code> method</span></a>.
+Unfortunately, the results are not always satisfactory, and the relatively small set of
+inputs present in the generated code can make it difficult for users to determine what
+inputs they <em>actually</em> need to pass to the resource to describe its current state.</p>
+<p>A few other approaches might be:</p>
+<ul class="simple">
+<li><p>Emit no properties at all; just appropriate constructor calls. This will almost always
+emit code that does not compile or run, as nearly every resource has at least one
+required property.</p></li>
+<li><p>Copy the value for every input property present in a resource’s schema from its state.
+This risks emitting code that does not compile due to differences in types between
+inputs and outputs, and also risks emitting code that does not work at runtime due to
+conflicts between mutually-exclusive properties (these are common for TF-based
+resources, for example).</p></li>
+</ul>
+<p>It is likely that some mix of approaches is necessary in order to arrive at a satisfactory
+solution, as none of the above solutions seems universally “correct”.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-resource-option"><code class="docutils literal notranslate"><span class="pre">import</span></code> resource option</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-note">Technical Note</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pulumi-import"><code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">import</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

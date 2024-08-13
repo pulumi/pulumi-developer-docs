@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Automation API &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sdk/go/auto/README';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../docs/README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/writing.html">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/sdk/go/auto/README.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Automation API</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#godocs">Godocs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-the-godocs">Developing the Godocs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-issues">Known Issues</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="automation-api">
+<h1>Automation API<a class="headerlink" href="#automation-api" title="Link to this heading">#</a></h1>
+<p>Programmatic infrastructure.</p>
+<section id="godocs">
+<h2>Godocs<a class="headerlink" href="#godocs" title="Link to this heading">#</a></h2>
+<p>See the full godocs for the most extensive and up to date information including full examples coverage:</p>
+<p>https://pkg.go.dev/github.com/pulumi/pulumi/sdk/v3/go/auto?tab=doc</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>Multiple full working examples with detailed walkthroughs can be found in this repo:</p>
+<p>https://github.com/pulumi/automation-api-examples</p>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>Package auto contains the Pulumi Automation API, the programmatic interface for driving Pulumi programs
+without the CLI.
+Generally this can be thought of as encapsulating the functionality of the CLI (<code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">up</span></code>, <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">preview</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">destroy</span></code>, <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">stack</span> <span class="pre">init</span></code>, etc.) but with more flexibility. This still requires a
+CLI binary to be installed and available on your $PATH.</p>
+<p>In addition to fine-grained building blocks, Automation API provides three out of the box ways to work with Stacks:</p>
+<ol class="arabic simple">
+<li><p>Programs locally available on-disk and addressed via a filepath (NewStackLocalSource)</p></li>
+</ol>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nx">stack</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewStackLocalSource</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myOrg/myProj/myStack&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="s">&quot;..&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;to&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;project&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Programs fetched from a Git URL (NewStackRemoteSource)</p></li>
+</ol>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">	</span><span class="nx">stack</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewStackRemoteSource</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myOrg/myProj/myStack&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">GitRepo</span><span class="p">{</span>
+<span class="w">		</span><span class="nx">URL</span><span class="p">:</span><span class="w">         </span><span class="s">&quot;https:github.com/pulumi/test-repo.git&quot;</span><span class="p">,</span>
+<span class="w">		</span><span class="nx">ProjectPath</span><span class="p">:</span><span class="w"> </span><span class="nx">filepath</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="s">&quot;project&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;repo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;root&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;relative&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">})</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Programs defined as a function alongside your Automation API code (NewStackInlineSource)</p></li>
+</ol>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">	 </span><span class="nx">stack</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewStackInlineSource</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myOrg/myProj/myStack&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myProj&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">pCtx</span><span class="w"> </span><span class="o">*</span><span class="nx">pulumi</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">bucket</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s3</span><span class="p">.</span><span class="nx">NewBucket</span><span class="p">(</span><span class="nx">pCtx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;bucket&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">		</span><span class="p">}</span>
+<span class="w">		</span><span class="nx">pCtx</span><span class="p">.</span><span class="nx">Export</span><span class="p">(</span><span class="s">&quot;bucketName&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bucket</span><span class="p">.</span><span class="nx">Bucket</span><span class="p">)</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">     </span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Each of these creates a stack with access to the full range of Pulumi lifecycle methods
+(up/preview/refresh/destroy), as well as methods for managing config, stack, and project settings.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">	 </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">stack</span><span class="p">.</span><span class="nx">SetConfig</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ConfigValue</span><span class="p">{</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Secret</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span>
+<span class="w">	 </span><span class="nx">preRes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">stack</span><span class="p">.</span><span class="nx">Preview</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">	 </span><span class="nx">detailed</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="nx">about</span><span class="w"> </span><span class="nx">results</span>
+<span class="w">     </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">preRes</span><span class="p">.</span><span class="nx">prev</span><span class="p">.</span><span class="nx">Steps</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">URN</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The Automation API provides a natural way to orchestrate multiple stacks,
+feeding the output of one stack as an input to the next as shown in the package-level example below.
+The package can be used for a number of use cases:</p>
+<ul class="simple">
+<li><p>Driving pulumi deployments within CI/CD workflows</p></li>
+<li><p>Integration testing</p></li>
+<li><p>Multi-stage deployments such as blue-green deployment patterns</p></li>
+<li><p>Deployments involving application code like database migrations</p></li>
+<li><p>Building higher level tools, custom CLIs over pulumi, etc</p></li>
+<li><p>Using pulumi behind a REST or GRPC API</p></li>
+<li><p>Debugging Pulumi programs (by using a single main entrypoint with “inline” programs)</p></li>
+</ul>
+<p>To enable a broad range of runtime customization the API defines a <code class="docutils literal notranslate"><span class="pre">Workspace</span></code> interface.
+A Workspace is the execution context containing a single Pulumi project, a program, and multiple stacks.
+Workspaces are used to manage the execution environment, providing various utilities such as plugin
+installation, environment configuration ($PULUMI_HOME), and creation, deletion, and listing of Stacks.
+Every Stack including those in the above examples are backed by a Workspace which can be accessed via:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">	 </span><span class="nx">w</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">stack</span><span class="p">.</span><span class="nx">Workspace</span><span class="p">()</span>
+<span class="w">     </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">w</span><span class="p">.</span><span class="nx">InstallPlugin</span><span class="p">(</span><span class="s">&quot;aws&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;v3.2.0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Workspaces can be explicitly created and customized beyond the three Stack creation helpers noted above:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">	 </span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewLocalWorkspace</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">WorkDir</span><span class="p">(</span><span class="nx">filepath</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;project&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">PulumiHome</span><span class="p">(</span><span class="s">&quot;~/.pulumi&quot;</span><span class="p">))</span>
+<span class="w">     </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewStack</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;org/proj/stack&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">w</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A default implementation of workspace is provided as <code class="docutils literal notranslate"><span class="pre">LocalWorkspace</span></code>. This implementation relies on Pulumi.yaml
+and Pulumi.<stack>.yaml as the intermediate format for Project and Stack settings. Modifying ProjectSettings will
+alter the Workspace Pulumi.yaml file, and setting config on a Stack will modify the Pulumi.<stack>.yaml file.
+This is identical to the behavior of Pulumi CLI driven workspaces. Custom Workspace
+implementations can be used to store Project and Stack settings as well as Config in a different format,
+such as an in-memory data structure, a shared persistent SQL database, or cloud object storage. Regardless of
+the backing Workspace implementation, the Pulumi SaaS Console will still be able to display configuration
+applied to updates as it does with the local version of the Workspace today.</p>
+<p>The Automation API also provides error handling utilities to detect common cases such as concurrent update
+conflicts:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">	</span><span class="nx">uRes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="nx">stack</span><span class="p">.</span><span class="nx">Up</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">IsConcurrentUpdateError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* retry logic here */</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="developing-the-godocs">
+<h2>Developing the Godocs<a class="headerlink" href="#developing-the-godocs" title="Link to this heading">#</a></h2>
+<p>This repo has extensive examples and godoc content. To test out your changes locally you can do the following:</p>
+<ol class="arabic simple">
+<li><p>enlist in the appropriate pulumi branch:</p></li>
+<li><p>cd $GOPATH/src/github.com/pulumi/pulumi/sdk/go/auto</p></li>
+<li><p>godoc -http=:6060</p></li>
+<li><p>Navigate to http://localhost:6060/pkg/github.com/pulumi/pulumi/sdk/v3/go/auto/</p></li>
+</ol>
+</section>
+<section id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading">#</a></h2>
+<p>Please upvote issues, add comments, and open new ones to help prioritize our efforts:
+https://github.com/pulumi/pulumi/issues?q=is%3Aissue+is%3Aopen+label%3Aarea%2Fautomation-api</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#godocs">Godocs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#developing-the-godocs">Developing the Godocs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-issues">Known Issues</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

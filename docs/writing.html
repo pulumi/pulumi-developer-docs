@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Writing documentation &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/writing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Diagrams" href="diagrams.html" />
+    <link rel="prev" title="Pulumi developer documentation" href="README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/writing.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Writing documentation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions">Conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#myst-compatible-markdown-style-guide-cheatsheet">MyST-compatible Markdown style guide/cheatsheet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h1-document-title">H1: Document title</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h2-getting-into-it">H2: Getting into it</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-cross-referencing">H3: Cross-referencing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-custom-link-types">H3: Custom link types</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="writing-documentation">
+<h1>Writing documentation<a class="headerlink" href="#writing-documentation" title="Link to this heading">#</a></h1>
+<section id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Write documentation in Markdown (<code class="docutils literal notranslate"><span class="pre">.md</span></code> files) where possible. While Sphinx
+supports reStructuredText (rST, <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files), Markdown is generally more
+ubiquitous, and easier to read and write for contributors. Most advanced
+reStructuredText features are made available by the
+<a class="reference external" href="https://myst-parser.readthedocs.io" rel="noreferer noopener" target="_blank">MyST parser</a> we use, so you should be
+able to do everything you need to do in Markdown. If you can’t, consider
+opening an issue so that we can make it possible!</p></li>
+<li><p>Whether you are writing Markdown or reStructuredText, the entry point for
+documentation on a component, service, library, etc. should be named
+<code class="docutils literal notranslate"><span class="pre">README.md</span></code> (Markdown) or <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> (reStructuredText).</p></li>
+<li><p>Use headers correctly. All documents <em>must</em> have a top-level (“h1”) header –
+this is <code class="docutils literal notranslate"><span class="pre">#</span></code> in Markdown and <code class="docutils literal notranslate"><span class="pre">###</span></code>-over-and-underbars in reStructuredText.
+There <em>must</em> not be more than one top-level header in a given file (Markdown
+or reStructuredText).</p></li>
+<li><p>If you are documenting a single thing (a component, service, library etc.) you
+should in almost all cases use the name of that thing (or an appropriate
+human-readable counterpart) as the top-level header (e.g.
+<code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">Code</span> <span class="pre">generation</span></code> in <code class="docutils literal notranslate"><span class="pre">pkg/codegen/README.md</span></code>).</p></li>
+<li><p>If you are documenting a group of things (e.g. a package or bounded context
+consisting of multiple libraries, services, maybe some words on how
+development works, etc.) you should aggregate the documentation for those
+things using an appropriate table of contents. Use the <code class="docutils literal notranslate"><span class="pre">toctree</span></code> directive
+(available using triple-colon fences in MyST) to achieve this. You can make
+use of globs to make this more “free” if you want:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>```{toctree}
+:glob:
+:maxdepth: 1
+:titlesonly:
+
+/path/to/package/**/README
+```
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="myst-compatible-markdown-style-guide-cheatsheet">
+<h2>MyST-compatible Markdown style guide/cheatsheet<a class="headerlink" href="#myst-compatible-markdown-style-guide-cheatsheet" title="Link to this heading">#</a></h2>
+<p>The following is a quick reference for writing MyST-compatible Markdown. For
+more comprehensive documentation, see the <a class="reference external" href="https://myst-parser.readthedocs.io" rel="noreferer noopener" target="_blank">MyST
+documentation</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">H1:</span> <span class="pre">Document</span> <span class="pre">title</span></code> in the example snippet below is actually written as
+an H2 (<code class="docutils literal notranslate"><span class="pre">##</span></code>) in the source document so as not to violate the principle of only
+having one top-level header per document (and in turn not break any tables of
+contents).</p>
+</div>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># H1: Document title</span>
+
+H1s are denoted with <span class="sb">`#`</span>; H2s with <span class="sb">`##`</span>; H3s with <span class="sb">`###`</span>; and so on. Leave a
+blank line before any heading. A document should have exactly one H1.
+
+Lines should be no longer than 120 characters. Except where noted, favour
+<span class="sb">`lower-kebab-case`</span> for identifiers/reference names etc.
+
+<span class="gu">## H2: Getting into it</span>
+
+Many &quot;reStructuredText-only&quot; features are made available in MyST Markdown using
+triple-colon fences. For example, admonitions (hints, notes, etc.) look as
+follows:
+
+:::{note}
+An example one-line note.
+:::
+
+Code blocks work as they do in normal Markdown, using backticks for inline code
+and triple backticks for blocks. Specifying a supported language will enable
+syntax highlighting:
+
+<span class="sb">```bash</span>
+<span class="c1"># Execute a bash script.</span>
+$<span class="w"> </span>/some/interesting/bash/script.sh
+<span class="sb">```</span>
+
+Use <span class="ge">*single asterisks for emphasis*</span> (italics), **double asterisks for heavy
+emphasis** (boldface) and <span class="sb">`backticks for monospace`</span>. Links can be
+take a number of forms -- [<span class="nt">here&#39;s an external HTTP example</span>](<span class="na">https://example.com</span>)
+and [<span class="nt">here&#39;s a link to a part of the document</span>](<span class="na">#sec-some-part-of-the-document</span>).
+External links will open in a new tab by default.[^side-note-1]
+
+[<span class="nl">^side-note-1</span>]: <span class="na">Check out this neat side note too!</span>
+
+(sec-some-part-of-the-document)=
+
+<span class="gu">### H3: Cross-referencing</span>
+
+You can define a label for a block as above using the <span class="sb">`(label)=`</span> syntax and
+refer to it using an <span class="sb">`#id`</span> as shown above. As above, follow a convention of
+prefixing sections with <span class="sb">`sec-`</span> and adhere to kebab-case.
+
+<span class="gu">### H3: Custom link types</span>
+
+MyST supports custom URL schemes and we (ab)use these for convenient linking to
+GitHub issues and files:
+
+<span class="k">*</span><span class="w"> </span>&lt;gh-issue:pulumi#1234&gt; will link to issue 1234 in the <span class="sb">`pulumi`</span> repository.
+<span class="k">*</span><span class="w"> </span>&lt;gh-file:pulumi#README.md&gt; will link to the <span class="sb">`README.md`</span> file in the <span class="sb">`pulumi`</span>
+  repository.
+</pre></div>
+</div>
+</section>
+<section id="h1-document-title">
+<h2>H1: Document title<a class="headerlink" href="#h1-document-title" title="Link to this heading">#</a></h2>
+<p>H1s are denoted with <code class="docutils literal notranslate"><span class="pre">#</span></code>; H2s with <code class="docutils literal notranslate"><span class="pre">##</span></code>; H3s with <code class="docutils literal notranslate"><span class="pre">###</span></code>; and so on. Leave a
+blank line before any heading. A document should have exactly one H1.</p>
+<p>Lines should be no longer than 120 characters. Except where noted, favour
+<code class="docutils literal notranslate"><span class="pre">lower-kebab-case</span></code> for identifiers/reference names etc.</p>
+</section>
+<section id="h2-getting-into-it">
+<h2>H2: Getting into it<a class="headerlink" href="#h2-getting-into-it" title="Link to this heading">#</a></h2>
+<p>Many “reStructuredText-only” features are made available in MyST Markdown using
+triple-colon fences. For example, admonitions (hints, notes, etc.) look as
+follows:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An example one-line note.</p>
+</div>
+<p>Code blocks work as they do in normal Markdown, using backticks for inline code
+and triple backticks for blocks. Specifying a supported language will enable
+syntax highlighting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Execute a bash script.</span>
+$<span class="w"> </span>/some/interesting/bash/script.sh
+</pre></div>
+</div>
+<p>Use <em>single asterisks for emphasis</em> (italics), <strong>double asterisks for heavy
+emphasis</strong> (boldface) and <code class="docutils literal notranslate"><span class="pre">backticks</span> <span class="pre">for</span> <span class="pre">monospace</span></code>. Links can be
+take a number of forms – <a class="reference external" href="https://example.com" rel="noreferer noopener" target="_blank">here’s an external HTTP example</a>
+and <a class="reference internal" href="#sec-some-part-of-the-document">here’s a link to a part of the document</a>.
+External links will open in a new tab by default.<label for='sidenote-role-1' class='margin-toggle'><span id="id1">
+<sup>1</sup></span>
+
+</label><input type='checkbox' id='sidenote-role-1' name='sidenote-role-1' class='margin-toggle'><span class="sidenote"><sup>1</sup>Check out this neat side note too!</span></p>
+<section id="h3-cross-referencing">
+<span id="sec-some-part-of-the-document"></span><h3>H3: Cross-referencing<a class="headerlink" href="#h3-cross-referencing" title="Link to this heading">#</a></h3>
+<p>You can define a label for a block as above using the <code class="docutils literal notranslate"><span class="pre">(label)=</span></code> syntax and
+refer to it using an <code class="docutils literal notranslate"><span class="pre">#id</span></code> as shown above. As above, follow a convention of
+prefixing sections with <code class="docutils literal notranslate"><span class="pre">sec-</span></code> and adhere to kebab-case.</p>
+</section>
+<section id="h3-custom-link-types">
+<h3>H3: Custom link types<a class="headerlink" href="#h3-custom-link-types" title="Link to this heading">#</a></h3>
+<p>MyST supports custom URL schemes and we (ab)use these for convenient linking to
+GitHub issues and files:</p>
+<ul class="simple">
+<li><p><a class="github reference external" href="https://github.com/pulumi/pulumi/issues/1234" rel="noreferer noopener" target="_blank">pulumi/pulumi #1234</a> will link to issue 1234 in the <code class="docutils literal notranslate"><span class="pre">pulumi</span></code> repository.</p></li>
+<li><p><a class="github reference external" href="https://github.com/pulumi/pulumi/blob/master/README.md" rel="noreferer noopener" target="_blank">pulumi/pulumi:README.md</a> will link to the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file in the <code class="docutils literal notranslate"><span class="pre">pulumi</span></code>
+repository.</p></li>
+</ul>
+<hr class="footnotes docutils" />
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Pulumi developer documentation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="diagrams.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Diagrams</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions">Conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#myst-compatible-markdown-style-guide-cheatsheet">MyST-compatible Markdown style guide/cheatsheet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h1-document-title">H1: Document title</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#h2-getting-into-it">H2: Getting into it</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-cross-referencing">H3: Cross-referencing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h3-custom-link-types">H3: Custom link types</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

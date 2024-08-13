@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Resource Registration &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer-docs/architecture/resource-registration';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../docs/README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/writing.html">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/developer-docs/architecture/resource-registration.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Resource Registration</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resource-monitor">The Resource Monitor</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-providers">Default Providers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-step-generator">The Step Generator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-diffing">Resource Diffing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependent-replacements">Dependent Replacements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-step-executor">The Step Executor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-resource-registration-sequences">Example Resource Registration Sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-resources">Custom Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create">Create</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update">Update</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#replace">Replace</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-before-replace">Delete-before-replace</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import">Import</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#no-change">No change</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-language-components">Multi-language Components</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="resource-registration">
+<h1>Resource Registration<a class="headerlink" href="#resource-registration" title="Link to this heading">#</a></h1>
+<p>A Pulumi program declares the desired states of its stack’s resources by sending <code class="docutils literal notranslate"><span class="pre">RegisterResource</span></code> requests to the
+Pulumi engine. Each <code class="docutils literal notranslate"><span class="pre">RegisterResource</span></code> request contains the type, name, and parent (if any) of the resource, a
+reference to the provider instance that manages the resource (where an empty reference indicates that the resource
+uses the default provider instance for its package + version), the values of the resource’s input properties, and
+any options that apply to the resource. The engine decides what step to take in order to drive a resource to its
+goal state by diffing the resource’s current state as present in the statefile with its desired state. If there is
+no current state, the resource is created. Otherwise, the engine calls the resource’s provider’s <code class="docutils literal notranslate"><span class="pre">Diff</span></code> method to
+determine wither the resource is unchanged, updated, or replaced. Once the required action (or actions, in the case
+of a replacement) has been determined, the engine calls the resource’s provider’s <code class="docutils literal notranslate"><span class="pre">Create</span></code>, <code class="docutils literal notranslate"><span class="pre">Update</span></code>, or <code class="docutils literal notranslate"><span class="pre">Delete</span></code>
+methods to perform it. After the action completes, the engine returns the new state of the resource to the Pulumi
+program.</p>
+<p>Although we typically treat the engine as a single unit, in the case of resource registrations it helps to break it
+down into a few of its internal components: the <a class="reference internal" href="#the-resource-monitor"><span class="xref myst">resource monitor</span></a>, the <a class="reference internal" href="#the-step-generator"><span class="xref myst">step generator</span></a>, and the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a>. Each
+of these components is a participant in the response to a <code class="docutils literal notranslate"><span class="pre">RegisterResourceRequest</span></code>.</p>
+<section id="the-resource-monitor">
+<h2>The Resource Monitor<a class="headerlink" href="#the-resource-monitor" title="Link to this heading">#</a></h2>
+<p>The <em>resource monitor</em> provider serves the <code class="docutils literal notranslate"><span class="pre">ResourceMonitor</span></code> gRPC interface, and provides a shim between language SDKs
+and the rest of the engine. There is a single resource monitor per deployment. As the engine’s feature set has grown,
+the resource monitor has taken on responsibilities beyond its original use as a simple marshaling/unmarshaling layer.
+It is now responsible for handling default providers (providers for resource registrations that do not reference a
+provider instance) and for dispatching <code class="docutils literal notranslate"><span class="pre">RegisterResourceRequest</span></code>s for multi-language components into appropriate
+<code class="docutils literal notranslate"><span class="pre">Construct</span></code> calls.</p>
+<p>When the resource monitor receives a resource registration, it does the following:</p>
+<ol class="arabic simple">
+<li><p>Unmarshals data from the gRPC wire format to the engine’s internal representation.</p></li>
+<li><p>If the registration request does not name a provider instance, handles the resolution of the resource’s default
+provider.</p></li>
+<li><p>If the request is for a multi-language component, dispatches a <code class="docutils literal notranslate"><span class="pre">Construct</span></code> call to the component’s provider and
+waits for the result.</p></li>
+<li><p>If the request is not for a multi-langauge component, sends a <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code> to the <a class="reference internal" href="#the-step-generator"><span class="xref myst">step generator</span></a> and
+waits for the result.</p></li>
+<li><p>Marshals the result of the <code class="docutils literal notranslate"><span class="pre">Construct</span></code> call or <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code> from the engine’s internal representation
+to the gRPC wire format and returns from the RPC call.</p></li>
+</ol>
+<section id="default-providers">
+<h3>Default Providers<a class="headerlink" href="#default-providers" title="Link to this heading">#</a></h3>
+<p>Default providers demand some amount of special attention. A <em>default provider</em> for a package and version is the
+provider instance that is used for resources at that package and version that do not otherwise reference a provider
+instance when they are registered. For example, consider the following program that creates an AWS S3 bucket:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">aws</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@pulumi/aws&quot;</span><span class="p">;</span>
+
+<span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">s3</span><span class="p">.</span><span class="nx">Bucket</span><span class="p">(</span><span class="s2">&quot;myBucket&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The constructor call will become a <code class="docutils literal notranslate"><span class="pre">RegisterResourceRequest</span></code> like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RegisterResourceRequest</span><span class="p">{</span>
+	<span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;aws:s3/bucket:Bucket&quot;</span><span class="p">,</span>
+	<span class="n">name</span><span class="p">:</span> <span class="s2">&quot;myBucket&quot;</span><span class="p">,</span>
+	<span class="n">parent</span><span class="p">:</span> <span class="s2">&quot;urn:pulumi:dev::project::pulumi:pulumi:Stack::project&quot;</span><span class="p">,</span>
+	<span class="n">custom</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+	<span class="nb">object</span><span class="p">:</span> <span class="p">{},</span>
+	<span class="n">version</span><span class="p">:</span> <span class="s2">&quot;4.16.0&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Because this request does not contain a value for the <code class="docutils literal notranslate"><span class="pre">provider</span></code> field, it will use the default provider for the
+<code class="docutils literal notranslate"><span class="pre">aws</span></code> package at version 4.16.0. The resource monitor ensures that only a single default provider instance exists
+for each particular package version, and only creates default provider instances if they are needed. Default provider
+instances are registered by synthesizing an appropriate <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code> with input properties sourced from the
+stack’s configuration values for the provider’s package. In the example above, the AWS default provider would be
+configured using any stack configuration values whose keys begin with <code class="docutils literal notranslate"><span class="pre">aws:</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">aws:region</span></code>).</p>
+<p>If we change the program slightly to create and reference a provider instance, the default provider will no longer
+be used:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">aws</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@pulumi/aws&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">usWest2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">Provider</span><span class="p">(</span><span class="s2">&quot;us-west-2&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;us-west-2&quot;</span><span class="p">});</span>
+
+<span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">s3</span><span class="p">.</span><span class="nx">Bucket</span><span class="p">(</span><span class="s2">&quot;myBucket&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="p">{</span><span class="nx">provider</span><span class="o">:</span><span class="w"> </span><span class="kt">usWest2</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>The constructor call will become a <code class="docutils literal notranslate"><span class="pre">RegisterResourceRequest</span></code> like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RegisterResourceRequest</span><span class="p">{</span>
+	<span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;aws:s3/bucket:Bucket&quot;</span><span class="p">,</span>
+	<span class="n">name</span><span class="p">:</span> <span class="s2">&quot;myBucket&quot;</span><span class="p">,</span>
+	<span class="n">parent</span><span class="p">:</span> <span class="s2">&quot;urn:pulumi:dev::project::pulumi:pulumi:Stack::project&quot;</span><span class="p">,</span>
+	<span class="n">custom</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+	<span class="nb">object</span><span class="p">:</span> <span class="p">{},</span>
+	<span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;urn:pulumi:dev::vpc-2::pulumi:providers:aws::us-west-2::308b79ee-8249-40fb-a203-de190cb8faa8&quot;</span><span class="p">,</span>
+	<span class="n">version</span><span class="p">:</span> <span class="s2">&quot;4.16.0&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that this request <em>does</em> contain a value for the <code class="docutils literal notranslate"><span class="pre">provider</span></code> field.</p>
+</section>
+</section>
+<section id="the-step-generator">
+<h2>The Step Generator<a class="headerlink" href="#the-step-generator" title="Link to this heading">#</a></h2>
+<p>The <em>step generator</em> is responsible for processing <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code>s from the <a class="reference internal" href="#the-resource-monitor"><span class="xref myst">resource monitor</span></a>. The generator
+implements the core logic that determines which actions to take in order to drive the actual state of a resource to
+its desired state as represented by the input properties in its <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code>. In order to simplify
+reasoning about the actual state of a stack’s resources, the step generator processes <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code>s
+serially. It is important to note that this approach puts the step generator on a deployment’s critical path, so
+any significant blocking in the step generator may slow down deployments accordingly. In the case of updates, step
+generator latency is generally insignificant compared to the time spent performing resource operations, but this is
+not the case for updates where most resources are unchanged or for previews, which spend very little time in resource
+providers in general.</p>
+<p>When the step generator receives a <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code>, it does the following:</p>
+<ol class="arabic simple">
+<li><p>Generate a URN for the resource using the resource’s type, name, and parent.</p></li>
+<li><p>Look up the existing state for the resource, if any. If the event contains aliases for the resource, this includes
+checking for existing state under those aliases. It is an error if a resource’s aliases match multiple existing
+states.</p></li>
+<li><p>Pre-process input properties for ignored changes by setting any properties mentioned in the event’s ignore changes
+list to their old value (if any)</p></li>
+<li><p>If the event indicates that the resource should be imported, issue an <code class="docutils literal notranslate"><span class="pre">ImportStep</span></code> to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> and return.</p></li>
+<li><p>Call the resource’s provider’s <code class="docutils literal notranslate"><span class="pre">Check</span></code> method with the event’s input properties and the resource’s existing inputs,
+if any. The existing inputs may be used by the provider to repopulate default values for input properties that are
+automatically generated when the resource is created but should not be changed with subsequent updates (e.g.
+automatically generated names). <code class="docutils literal notranslate"><span class="pre">Check</span></code> returns a pre-processed bag of input values to be used with later calls to
+<code class="docutils literal notranslate"><span class="pre">Diff</span></code>, <code class="docutils literal notranslate"><span class="pre">Create</span></code>, and <code class="docutils literal notranslate"><span class="pre">Update</span></code>.</p></li>
+<li><p>Invoke any analyzers for the stack to perform additional validation of the resource’s input properties.</p></li>
+<li><p>If the resource has no existing state, it is being created. Issue a <code class="docutils literal notranslate"><span class="pre">CreateStep</span></code> to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> and return.</p></li>
+<li><p>Diff the resource in order to determine whether it must be updated, replaced, delete-before-replaced, or has no
+changes. Diffing is covered in detail later on, but typically consists of calling the reosource’s provider’s
+<code class="docutils literal notranslate"><span class="pre">Diff</span></code> method with the checked inputs from step 5.</p></li>
+<li><p>If the resource has no changes, issue a <code class="docutils literal notranslate"><span class="pre">SameStep</span></code> to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> and return.</p></li>
+<li><p>If the resource is not being replaced, issue an <code class="docutils literal notranslate"><span class="pre">UpdateStep</span></code> to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> and return.</p></li>
+<li><p>If the resource is being replaced, call the resource’s provider’s <code class="docutils literal notranslate"><span class="pre">Check</span></code> method again, but with no existing
+inputs. This call ensures that the input properties used to create the replacement resource do not reuse
+generated defaults from the existing resource.</p></li>
+<li><p>If the replacement resource is being created before the original is deleted (a normal replacement), issue a
+<code class="docutils literal notranslate"><span class="pre">CreateStep</span></code> and a <code class="docutils literal notranslate"><span class="pre">DeleteStep</span></code> to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> and return.</p></li>
+<li><p>At this point, the resource must be deleted before its replacement is created (this is the “delete-before-replace”
+case). Calculate the set of dependent resources that must be deleted prior to deleting the resource being replaced.
+The details of this calculation are covered in a later section. Once the set of deletions has been calculated,
+issue a sequence of <code class="docutils literal notranslate"><span class="pre">DeleteStep</span></code>s followed by a single <code class="docutils literal notranslate"><span class="pre">CreateStep</span></code> to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a>.</p></li>
+</ol>
+<p>Note that all steps that are issued to the step generator are fire-and-forget. Once steps have been issues, the step
+generator moves on to process the next <code class="docutils literal notranslate"><span class="pre">RegisterResourceEvent</span></code>. It is the responsibility of the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> to
+communicate the results of each step back to the <a class="reference internal" href="#the-resource-monitor"><span class="xref myst">resource monitor</span></a>.</p>
+<p>Once the Pulumi program has exited, the step generator determines which existing resources must be deleted by taking
+the difference between the set of registered resources and the set of existing resources. These resources are scheduled
+for deletion by first sorting the list of resources to delete using the topological order of their reverse-dependency
+grapth, then decomposing the list into a list of lists where each list can be executed in parallel but a previous list
+must be executed to completion before advancing to the next list.</p>
+<p>In lieu of tracking per-step dependencies and orienting the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a> around these dependencies, this approach
+provides a conservative approximation of which deletions can safely occur in parallel. The insight here is that the
+resource dependency graph is a partially-ordered set and all partially-ordered sets can be easily decomposed into
+antichains–subsets of the set that are all not comparable to one another (in this definition, “not comparable”
+means “do not depend on one another”).</p>
+<p>The algorithm for decomposing a poset into antichains is:</p>
+<ol class="arabic simple">
+<li><p>While there exist elements in the poset, <br />
+a. There must exist at least one “maximal” element of the poset. Let <code class="docutils literal notranslate"><span class="pre">E_max</span></code> be those elements. <br />
+b. Remove all elements E_max from the poset. <code class="docutils literal notranslate"><span class="pre">E_max</span></code> is an antichain. <br />
+c. Goto 1.</p></li>
+</ol>
+<p>Translated to a resource dependency graph:</p>
+<ol class="arabic simple">
+<li><p>While the set of condemned resources is not empty: <br />
+a. Remove all resources with no outgoing edges from the graph and add them to the current antichain. <br />
+b. Goto 1.</p></li>
+</ol>
+<p>The resulting list of antichains is a list of list of delete steps that can be safely executed in parallel. Since
+deletes must be processed in reverse order (so that resources are not deleted prior to their dependents), the step
+generator reverses the list and then issues each sublist to the <a class="reference internal" href="#the-step-executor"><span class="xref myst">step executor</span></a>.</p>
+<section id="resource-diffing">
+<h3>Resource Diffing<a class="headerlink" href="#resource-diffing" title="Link to this heading">#</a></h3>
+<p>Although resource diffing is simple in most cases, there are several possibilities that the step generator must
+consider as part of performing a diff. The algorithm for diffing a resource is outlined here.</p>
+<ol class="arabic simple">
+<li><p>If the resource has been marked for replacement out of band (e.g. by the use of the <code class="docutils literal notranslate"><span class="pre">--target-replace</span></code> command-line
+option of the Pulumi CLI), the resource must be replaced.</p></li>
+<li><p>If the resource’s provider has changed, the resource must be replaced. Default providers are allowed to change
+without requiring replacement if and only if the provider’s configuration allows the new default provider to continue
+to manage existing resources (this is intended to allow default providers to be upgraded without requiring that
+all the resources they manage are replaced).</p></li>
+<li><p>If the engine is configured to use pre-1.0-style diffs, compare the resource’s old and new inputs. If the old and
+new inputs differ, the resource must be updated.</p></li>
+<li><p>Otherwise, call the resource’s provider’s <code class="docutils literal notranslate"><span class="pre">Diff</span></code> method with the resource’s new inputs, old state, and ignore changes
+set to determine whether the resource has changed, and if so, if it must be replaced.</p></li>
+</ol>
+<p>Once the diff has been calculated, the step generator applies any replace-on-change options specified by the
+resource. These options force a resource to require that it is replaced if any of a particular set of properties has
+changed.</p>
+</section>
+<section id="dependent-replacements">
+<h3>Dependent Replacements<a class="headerlink" href="#dependent-replacements" title="Link to this heading">#</a></h3>
+<p>When a resource must be deleted before it is replaced–whether this is required by the resource’s provider or is forced
+using the <code class="docutils literal notranslate"><span class="pre">deleteBeforeReplace</span></code> resource option–it may be necessary to first delete dependent resources. The step
+generator does this by taking the complete set of transitive dependents on the resource under consideration and
+removing any resources that would not be replaced by changes to their dependencies. It determines whether or not a
+resource must be replaced by substituting unknowns for any input properties that may change due to deletion of the
+resources their value depends on and calling the resource’s provider’s <code class="docutils literal notranslate"><span class="pre">Diff</span></code> method.</p>
+<p>This is perhaps clearer when described by example. Consider the following dependency graph:</p>
+<p><img alt="Delete-before-replace example graph" src="../../_images/delete-before-replace-graph.svg" /></p>
+<p>In this graph, all of B, C, D, E, and F transitively depend on A. It may be the case, however, that changes to the
+specific properties of any of those resources R that would occur if a resource on the path to A were deleted and
+recreated may not cause R to be replaced. For example, the edge from B to A may be a simple <code class="docutils literal notranslate"><span class="pre">dependsOn</span></code> edge such that
+a change to B does not actually influence any of B’s input properties.  More commonly, the edge from B to A may be due
+to a property from A being used as the input to a property of B that does not require B to be replaced upon a change.
+In these cases, neither B nor D would need to be deleted before A could be deleted.</p>
+</section>
+</section>
+<section id="the-step-executor">
+<h2>The Step Executor<a class="headerlink" href="#the-step-executor" title="Link to this heading">#</a></h2>
+<p>The <em>step executor</em> is responsible for executing sequences of steps (called “chains”) that perform the resource actions
+for a deployment. These chains are issued by the <a class="reference internal" href="#the-step-generator"><span class="xref myst">step generator</span></a>, and most often consist of a single step. While the
+steps the make up a chain must be performed serially, chains may be executed in parallel. The step executor uses a
+(potentially infinite) pool of workers to execute steps. Once a step completes, the step executor communicates its
+results to the <a class="reference internal" href="#the-resource-monitor"><span class="xref myst">resource monitor</span></a> if necessary. If a step fails, the step executor notes the failure and cancels the
+deployment. Once the Pulumi program has exited and the <a class="reference internal" href="#the-step-generator"><span class="xref myst">step generator</span></a> has issued all required deletions, the step
+executor waits for all outstanding steps to complete and then returns.</p>
+</section>
+<section id="example-resource-registration-sequences">
+<h2>Example Resource Registration Sequences<a class="headerlink" href="#example-resource-registration-sequences" title="Link to this heading">#</a></h2>
+<section id="custom-resources">
+<h3>Custom Resources<a class="headerlink" href="#custom-resources" title="Link to this heading">#</a></h3>
+<p>Each of the diagrams below demonstrates a sequence of events that occur when a custom resource is registered. Examples
+are given for each possible action: create, update, replace, delete-before-replace, import, and no change.</p>
+<section id="create">
+<h4>Create<a class="headerlink" href="#create" title="Link to this heading">#</a></h4>
+<p><img alt="Create diagram" src="../../_images/create.svg" /></p>
+</section>
+<section id="update">
+<h4>Update<a class="headerlink" href="#update" title="Link to this heading">#</a></h4>
+<p><img alt="Update diagram" src="../../_images/update.svg" /></p>
+</section>
+<section id="replace">
+<h4>Replace<a class="headerlink" href="#replace" title="Link to this heading">#</a></h4>
+<p><img alt="Replace diagram" src="../../_images/replace.svg" /></p>
+</section>
+<section id="delete-before-replace">
+<h4>Delete-before-replace<a class="headerlink" href="#delete-before-replace" title="Link to this heading">#</a></h4>
+<p><img alt="Delete-before-replace diagram" src="../../_images/delete-before-replace.svg" /></p>
+</section>
+<section id="import">
+<h4>Import<a class="headerlink" href="#import" title="Link to this heading">#</a></h4>
+<p><img alt="Import diagram" src="../../_images/import.svg" /></p>
+</section>
+<section id="no-change">
+<h4>No change<a class="headerlink" href="#no-change" title="Link to this heading">#</a></h4>
+<p><img alt="No change diagram" src="../../_images/same.svg" /></p>
+</section>
+</section>
+<section id="multi-language-components">
+<h3>Multi-language Components<a class="headerlink" href="#multi-language-components" title="Link to this heading">#</a></h3>
+<p>The diagram below illustrates the sequence of events that occurs when a multi-language component is registered. The
+registration of the component’s children is elided.</p>
+<p><img alt="Multi-language component construction" src="../../_images/construct.svg" /></p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resource-monitor">The Resource Monitor</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-providers">Default Providers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-step-generator">The Step Generator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-diffing">Resource Diffing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependent-replacements">Dependent Replacements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-step-executor">The Step Executor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-resource-registration-sequences">Example Resource Registration Sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-resources">Custom Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create">Create</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update">Update</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#replace">Replace</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-before-replace">Delete-before-replace</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import">Import</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#no-change">No change</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-language-components">Multi-language Components</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

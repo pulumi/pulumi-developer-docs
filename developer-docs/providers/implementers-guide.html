@@ -1,0 +1,1281 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Resource Provider Implementer’s Guide &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer-docs/providers/implementers-guide';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../docs/README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/writing.html">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/developer-docs/providers/implementers-guide.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Resource Provider Implementer’s Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provider-programming-model">Provider Programming Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#urns">URNs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-resources">Custom Resources</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#component-resources">Component Resources</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exchange-types">Data Exchange Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assets-and-archives">Assets and Archives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-references">Resource References</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unknowns">Unknowns</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#secrets">Secrets</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#property-paths">Property Paths</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schema">Schema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provider-lifecycle">Provider Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lookup">Lookup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkconfig">CheckConfig</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diffconfig">DiffConfig</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configure">Configure</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown">Shutdown</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-resource-lifecycle">Custom Resource Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifecycle-methods">Lifecycle Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check">Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-options-interactions">Resource Options Interactions</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#ignorechanges">ignoreChanges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diff">Diff</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-diffs">Detailed Diffs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create">Create</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update">Update</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#read">Read</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#delete">Delete</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#component-resource-lifecycle">Component Resource Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construct">Construct</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provider-functions">Provider Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invoke">Invoke</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streaminvoke">StreamInvoke</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scenarios">CLI Scenarios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview">Preview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import">Import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refresh">Refresh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#destroy">Destroy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#out-of-process-plugin-lifecycle">Out-of-Process Plugin Lifecycle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grpc-interface">gRPC Interface</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="resource-provider-implementer-s-guide">
+<h1>Resource Provider Implementer’s Guide<a class="headerlink" href="#resource-provider-implementer-s-guide" title="Link to this heading">#</a></h1>
+<section id="provider-programming-model">
+<h2>Provider Programming Model<a class="headerlink" href="#provider-programming-model" title="Link to this heading">#</a></h2>
+<section id="resources">
+<h3>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h3>
+<p>The core functionality of a resource provider is the management of custom resources and
+construction of component resources within the scope of a Pulumi stack. Custom resources
+have a well-defined lifecycle built around the differences between their actual state and
+the desired state described by their inputs and implemented using create, read, update,
+and delete (CRUD) operations defined by the provider. Component resources have no
+associated lifecycle, and are constructed by registering child custom or component
+resources with the Pulumi engine.</p>
+<section id="urns">
+<h4>URNs<a class="headerlink" href="#urns" title="Link to this heading">#</a></h4>
+<p>Each resource registered with the Pulumi engine is logically identified by its
+uniform resource name (URN). A resource’s URN is derived from the its type, parent type,
+and user-supplied name. Within the scope of a resource-related provider method
+(<a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a>, <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a>, <a class="reference internal" href="#create"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Create</span></code></span></a>, <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a>,
+<a class="reference internal" href="#update"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Update</span></code></span></a>, <a class="reference internal" href="#delete"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Delete</span></code></span></a>, and <a class="reference internal" href="#construct"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Construct</span></code></span></a>), the type of
+the resource can be extracted from the provided URN. The structure of a URN is defined
+by the grammar below.</p>
+<div class="highlight-ebnf notranslate"><div class="highlight"><pre><span></span><span class="k">urn </span><span class="o">=</span> <span class="s2">&quot;urn:pulumi:&quot;</span> <span class="k">stack </span><span class="s2">&quot;::&quot;</span> <span class="k">project </span><span class="s2">&quot;::&quot;</span> <span class="k">qualified type name </span><span class="s2">&quot;::&quot;</span> <span class="k">name </span><span class="p">;</span>
+
+<span class="k">stack   </span><span class="o">=</span> <span class="k">string </span><span class="p">;</span>
+<span class="k">project </span><span class="o">=</span> <span class="k">string </span><span class="p">;</span>
+<span class="k">name    </span><span class="o">=</span> <span class="k">string </span><span class="p">;</span>
+<span class="k">string  </span><span class="o">=</span> <span class="cm">(* any sequence of unicode code points that does not contain &quot;::&quot; *)</span> <span class="p">;</span>
+
+<span class="k">qualified type name </span><span class="o">=</span> <span class="p">[</span> <span class="k">parent type </span><span class="s2">&quot;$&quot;</span> <span class="p">]</span> <span class="k">type </span><span class="p">;</span>
+<span class="k">parent type         </span><span class="o">=</span> <span class="k">type </span><span class="p">;</span>
+
+<span class="k">type       </span><span class="o">=</span> <span class="k">package </span><span class="s2">&quot;:&quot;</span> <span class="p">[</span> <span class="k">module </span><span class="s2">&quot;:&quot;</span> <span class="p">]</span> <span class="k">type name </span><span class="p">;</span>
+<span class="k">package    </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
+<span class="k">module     </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
+<span class="k">type name  </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
+<span class="k">identifier </span><span class="o">=</span> <span class="k">unicode letter </span><span class="p">{</span> <span class="k">unicode letter </span><span class="p">|</span> <span class="k">unicode digit </span><span class="p">|</span> <span class="s2">&quot;_&quot;</span> <span class="p">}</span> <span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-resources">
+<h4>Custom Resources<a class="headerlink" href="#custom-resources" title="Link to this heading">#</a></h4>
+<p>In addition to its URN, each custom resource has an associated ID. This ID is opaque to
+the Pulumi engine, and is only meaningful to the provider as a means to identify a
+physical resource. The ID must be a string. The empty ID indicates that a resource’s ID
+is not known because it has not yet been created. Critically, a custom resource has a
+<a class="reference internal" href="#custom-resource-lifecycle"><span class="xref myst">well-defined lifecycle</span></a> within the scope of a Pulumi stack.</p>
+</section>
+<section id="component-resources">
+<h4>Component Resources<a class="headerlink" href="#component-resources" title="Link to this heading">#</a></h4>
+<p>A component resource is a logical container for other resources. Besides its URN, a
+component resource has a set of inputs, a set of outputs, and a tree of children. Its
+only lifecycle semantics are those of its children; its inputs and outputs are not
+related in the same way a <a class="reference internal" href="#custom-resources"><span class="xref myst">custom resource’s</span></a> inputs and state are
+related. The engine can call a resource provider’s <a class="reference internal" href="#construct"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Construct</span></code></span></a> method to
+request that the provider create a component resource of a particular type.</p>
+</section>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h3>
+<p>A provider function is a function implemented by a provider, and has access to any of the
+provider’s state. Each function has a unique token, optionally accepts an input object,
+and optionally produces an output object. The data passed to and returned from a function
+must not be <a class="reference internal" href="#unknowns"><span class="xref myst">unknown</span></a> or <a class="reference internal" href="#secrets"><span class="xref myst">secret</span></a>, and must not
+<a class="reference internal" href="#resource-references"><span class="xref myst">refer to resources</span></a>. Note that an exception to these rules is made
+for component resource methods, which may accept values of any type, and are provided
+with a connection to the Pulumi engine.</p>
+</section>
+<section id="data-exchange-types">
+<h3>Data Exchange Types<a class="headerlink" href="#data-exchange-types" title="Link to this heading">#</a></h3>
+<p>The values exchanged between Pulumi resource providers and the Pulumi engine are a
+superset of the values expressible in JSON.</p>
+<p>Pulumi supports the following data types:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Null</span></code>, which represents the lack of a value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code>, which represents a boolean value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Number</span></code>, which represents an IEEE-754 double-precision number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">String</span></code>, which represents a sequence of UTF-8 encoded unicode code points</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Array</span></code>, which represents a numbered sequence of values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object</span></code>, which represents an unordered map from strings to values</p></li>
+<li><p><a class="reference internal" href="#assets-and-archives"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Asset</span></code></span></a>, which represents a blob</p></li>
+<li><p><a class="reference internal" href="#assets-and-archives"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Archive</span></code></span></a>, which represents a map from strings to <code class="docutils literal notranslate"><span class="pre">Asset</span></code>s or
+<code class="docutils literal notranslate"><span class="pre">Archive</span></code>s</p></li>
+<li><p><a class="reference internal" href="#resource-references"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ResourceReference</span></code></span></a>, which represents a reference to a <a class="reference internal" href="#resources"><span class="xref myst">Pulumi
+resource</span></a></p></li>
+<li><p><a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>, which represents a value whose type and concrete value are not
+known</p></li>
+<li><p><a class="reference internal" href="#secrets"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Secret</span></code></span></a>, which demarcates a value whose contents are sensitive</p></li>
+</ul>
+<section id="assets-and-archives">
+<h4>Assets and Archives<a class="headerlink" href="#assets-and-archives" title="Link to this heading">#</a></h4>
+<p>An <code class="docutils literal notranslate"><span class="pre">Asset</span></code> or <code class="docutils literal notranslate"><span class="pre">Archive</span></code> may contain either literal data or a reference to a file or URL.
+In the former case, the literal data is a textual string or a map from strings to <code class="docutils literal notranslate"><span class="pre">Asset</span></code>s
+or <code class="docutils literal notranslate"><span class="pre">Archive</span></code>s, respectively. In the latter case, the referenced file or URL is an opaque
+blob or a TAR, gzipped TAR, or ZIP archive, respectively.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">Asset</span></code> or <code class="docutils literal notranslate"><span class="pre">Archive</span></code> also carries the SHA-256 hash of its contents. This hash can be
+used to uniquely identify the asset (e.g. for locally caching <code class="docutils literal notranslate"><span class="pre">Asset</span></code> or <code class="docutils literal notranslate"><span class="pre">Archive</span></code>
+contents).</p>
+</section>
+<section id="resource-references">
+<h4>Resource References<a class="headerlink" href="#resource-references" title="Link to this heading">#</a></h4>
+<p>A <code class="docutils literal notranslate"><span class="pre">ResourceReference</span></code> represents a reference to a <a class="reference internal" href="#resources"><span class="xref myst">Pulumi resource</span></a>. Although
+all that is necessary to uniquely identify a resource is its URN, a <code class="docutils literal notranslate"><span class="pre">ResourceReference</span></code>
+also carries the resource’s ID (if it is a <a class="reference internal" href="#custom-resources"><span class="xref myst">custom resource</span></a>) and the
+version of the provider that manages the resource. If the contents of the referenced
+resource must be inspected, the reference must be resolved by invoking the <code class="docutils literal notranslate"><span class="pre">getResource</span></code>
+function of the engine’s builtin provider. Note that this is only possible if there is a
+connection to the engine’s resource monitor, e.g. within the scope of a call to <code class="docutils literal notranslate"><span class="pre">Construct</span></code>.
+This implies that resource references may not be resolved within calls to other
+provider methods. Therefore, configuration values, custom resources and provider functions
+should not rely on the ability to resolve resource references, and should instead treat
+resource references  as either their ID (if present) or URN. If the ID is present and
+empty, it should be treated as an <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>.</p>
+</section>
+<section id="unknowns">
+<h4>Unknowns<a class="headerlink" href="#unknowns" title="Link to this heading">#</a></h4>
+<p>An <code class="docutils literal notranslate"><span class="pre">Unknown</span></code> represents a value whose type and concrete value are not known. Resources
+typically produce these values during <a class="reference internal" href="#preview"><span class="xref myst">previews</span></a> for properties with values
+that cannot be determined until the resource is actually created or updated.
+<a class="reference internal" href="#functions"><span class="xref myst">Functions</span></a> must not accept or return unknown values.</p>
+</section>
+<section id="secrets">
+<h4>Secrets<a class="headerlink" href="#secrets" title="Link to this heading">#</a></h4>
+<p>A <code class="docutils literal notranslate"><span class="pre">Secret</span></code> represents a value whose contents are sensitive. Values of this type are
+merely wrappers around the sensitive value. A provider should take care not to leak a
+secret value, and should wrap any resource output values that are always sensitive in a
+<code class="docutils literal notranslate"><span class="pre">Secret</span></code>. <a class="reference internal" href="#functions"><span class="xref myst">Functions</span></a> must not accept or return secret values.</p>
+</section>
+<section id="property-paths">
+<h4>Property Paths<a class="headerlink" href="#property-paths" title="Link to this heading">#</a></h4>
+<p>TODO: write this up</p>
+</section>
+</section>
+</section>
+<section id="schema">
+<h2>Schema<a class="headerlink" href="#schema" title="Link to this heading">#</a></h2>
+<p>Each provider constitutes the implementation of a single Pulumi package. Each Pulumi
+package has an associated schema that describes the package’s
+<a class="reference internal" href="#configuration"><span class="xref myst">configuration</span></a>, <a class="reference internal" href="#resources"><span class="xref myst">resources</span></a>, <a class="reference internal" href="#functions"><span class="xref myst">functions</span></a>,
+and data types. The schema is primarily used to facilitate programmatic generation of
+per-language SDKs for the Pulumi package, but is also used for importing resources,
+program code generation, and more. Schemas may be expressed using JSON or YAML, and
+must validate against the <a class="reference internal" href="metaschema.html"><span class="std std-doc">metaschema</span></a>.</p>
+</section>
+<section id="provider-lifecycle">
+<h2>Provider Lifecycle<a class="headerlink" href="#provider-lifecycle" title="Link to this heading">#</a></h2>
+<p>Clients of a provider (e.g. the Pulumi CLI) must obey the provider lifecycle. This
+lifecycle guarantees that a provider is configured before any resource operations are
+performed or provider functions are invoked. The lifecycle of a provider instance is
+described in brief below.</p>
+<ol class="arabic simple">
+<li><p>The user <a class="reference internal" href="#lookup"><span class="xref myst">looks up</span></a> the factory for a particular <code class="docutils literal notranslate"><span class="pre">(package,</span> <span class="pre">semver)</span></code> tuple
+and uses the factory to create a provider instance.</p></li>
+<li><p>The user <a class="reference internal" href="#configuration"><span class="xref myst">configures</span></a> the provider instance with a particular
+configuration object.</p></li>
+<li><p>The user performs resource operations and/or calls provider functions with the
+provider instance.</p></li>
+<li><p>The user <a class="reference internal" href="#shutdown"><span class="xref myst">shuts down</span></a> the provider instance.</p></li>
+</ol>
+<p>Within the scope of a Pulumi stack, each provider instance has a corresponding provider
+resource. Provider resources are custom resources that are managed by the Pulumi engine,
+and obey the usual <a class="reference internal" href="#custom-resource-lifecycle"><span class="xref myst">custom resource lifecycle</span></a>. The <code class="docutils literal notranslate"><span class="pre">Check</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Diff</span></code> methods for a provider resource are implemented using the
+<a class="reference internal" href="#checkconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">CheckConfig</span></code></span></a> and <a class="reference internal" href="#diffconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code></span></a> methods of the resource’s
+provider instance. The latter is critically important to the user experience: if
+<a class="reference internal" href="#diffconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code></span></a> indicates that the provider resource must be replaced, all of
+the custom resources managed by the provider resource will <em>also</em> be replaced. Thus,
+<code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code> should only indicate that replacement is required if the provider’s
+new configuration prevents it from managing resources associated with its old
+configuration.</p>
+<section id="lookup">
+<h3>Lookup<a class="headerlink" href="#lookup" title="Link to this heading">#</a></h3>
+<p>Before a provider can be used, it must be instantiated. Instantiating a provider requires
+a <code class="docutils literal notranslate"><span class="pre">(package,</span> <span class="pre">semver)</span></code> tuple, which is used to find an appropriate provider factory. The
+lookup process proceeds as follows:</p>
+<ul class="simple">
+<li><p>Let the best available factory <code class="docutils literal notranslate"><span class="pre">B</span></code> be empty</p></li>
+<li><p>For each available provider factory <code class="docutils literal notranslate"><span class="pre">F</span></code> with package name <code class="docutils literal notranslate"><span class="pre">package</span></code>:</p>
+<ul>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">F</span></code>’s version is compatible with <code class="docutils literal notranslate"><span class="pre">semver</span></code>:</p>
+<ul>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">B</span></code> is empty or if <code class="docutils literal notranslate"><span class="pre">F</span></code>’s version is newer than <code class="docutils literal notranslate"><span class="pre">B</span></code>’s version, set <code class="docutils literal notranslate"><span class="pre">B</span></code> to <code class="docutils literal notranslate"><span class="pre">F</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">B</span></code> is empty, no compatible factory is available, and lookup fails</p></li>
+</ul>
+<p>Within the context of the Pulumi CLI, the list of available factories is the list of
+installed resource plugins plus the builtin <code class="docutils literal notranslate"><span class="pre">pulumi</span></code> provider. The list of installed
+resource plugins can be viewed by running <code class="docutils literal notranslate"><span class="pre">pulumi</span> <span class="pre">plugin</span> <span class="pre">ls</span></code>.</p>
+<p>Once an appropriate factory has been found, it is used to construct a provider instance.</p>
+</section>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h3>
+<p>A provider may accept a set of configuration variables. After a provider is instantiated,
+the instance must be configured before it may be used, even if its set of configuration
+variables is empty. Configuration variables may be of <a class="reference internal" href="#data-exchange-types"><span class="xref myst">any type</span></a>.
+Because it has no connection to the Pulumi engine during configuration, a provider’s
+configuration variables should not rely on the ability to resolve
+<a class="reference internal" href="#resource-references"><span class="xref myst">resource references</span></a>.</p>
+<p>In general, a provider’s configuration variables define the set of resources it is able
+to manage: for example, the <code class="docutils literal notranslate"><span class="pre">aws</span></code> provider accepts the AWS region to use as a
+configuration variable, which prevents a particular instance of the provider from
+managing AWS resources in other regions. As noted in the <a class="reference internal" href="#provider-lifecycle"><span class="xref myst">overview</span></a>,
+changes to a provider’s configuration that prevent the provider from managing resources
+that were created with its old configuration should require that those resources are
+destroyed and recreated.</p>
+<p>Provider configuration is performed in at most three steps:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#checkconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">CheckConfig</span></code></span></a>, which validates configuration values and applies
+defaults computed by the provider. This step is only required when configuring a
+provider using user-supplied values, and can be skipped when using values that were
+previously processed by <code class="docutils literal notranslate"><span class="pre">CheckConfig</span></code>.</p></li>
+<li><p><a class="reference internal" href="#diffconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code></span></a>, which indicates whether or not the new configuration can
+be used to manage resources created with the old configuration. Note that this step is
+only applicable within contexts where new and old configuration exist (e.g. during a
+<a class="reference internal" href="#preview"><span class="xref myst">preview</span></a> or <a class="reference internal" href="#update"><span class="xref myst">update</span></a> of a Pulumi stack).</p></li>
+<li><p><a class="reference internal" href="#configure"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Configure</span></code></span></a>, which applies the inputs validated by <code class="docutils literal notranslate"><span class="pre">CheckConfig</span></code>.</p></li>
+</ol>
+<section id="checkconfig">
+<h4>CheckConfig<a class="headerlink" href="#checkconfig" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">CheckConfig</span></code> implements the semantics of a custom resource’s <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> method,
+with provider configuration in the place of resource inputs. Each call to <code class="docutils literal notranslate"><span class="pre">CheckConfig</span></code> is
+provided with the provider’s prior checked configuration (if any) and the configuration
+supplied by the user. The provider may reject configuration values that do not conform to
+the provider’s schema, and may apply default values that are not statically computable.
+The type of a computed default value for a property should agree with the property’s
+schema.</p>
+</section>
+<section id="diffconfig">
+<h4>DiffConfig<a class="headerlink" href="#diffconfig" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code> implements the semantics of a custom resource’s <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a> method,
+with provider configuration in the place of resource inputs and state. Each call to
+<code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code> is provided with the provider’s prior and current configuration. If there
+are any changes to the provider’s configuration, those changes should be reflected in the
+result of <code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code>. If there are changes to the configuration that make the provider
+unable to manage resources created using the prior configuration (e.g. changing an AWS
+provider instance’s region), <code class="docutils literal notranslate"><span class="pre">DiffConfig</span></code> should indicate that the provider must be
+replaced. Because replacing a provider will require that all of the resources with
+which it is associated are <em>also</em> replaced, replacement semantics should be reserved
+for changes to configuration properties that are guaranteed to make old resources
+unmanagable (e.g. a change to an AWS access key should not require replacement, as the
+set of resources accessible via an access key is easily knowable).</p>
+</section>
+<section id="configure">
+<h4>Configure<a class="headerlink" href="#configure" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Configure</span></code> applies a set of checked configuration values to a provider instance. Within
+a call to <code class="docutils literal notranslate"><span class="pre">Configure</span></code>, a provider instance should use its configuration values to create
+appropriate SDK instances, check connectivity, etc. If configuration fails, the provider
+should return an error.</p>
+<section id="parameters">
+<h5>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code>: the configuration <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the provider. This value may contain
+<a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a> values if the provider is being configured during a
+<a class="reference internal" href="#preview"><span class="xref myst">preview</span></a>. In this case, the provider should provide as much
+functionality as possible.</p></li>
+</ul>
+</section>
+<section id="results">
+<h5>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h5>
+<p>None.</p>
+</section>
+</section>
+</section>
+<section id="shutdown">
+<h3>Shutdown<a class="headerlink" href="#shutdown" title="Link to this heading">#</a></h3>
+<p>Once a client has finished using a resource provider, it must shut the provider down.
+A client requests that a provider shut down gracefully by calling its <code class="docutils literal notranslate"><span class="pre">SignalCancellation</span></code>
+method. In response to this method, a provider should cancel all outstanding resource
+operations and function calls. After calling <code class="docutils literal notranslate"><span class="pre">SignalCancellation</span></code>, the client calls
+<code class="docutils literal notranslate"><span class="pre">Close</span></code> to inform the provider that it should release any resources it holds.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SignalCancellation</span></code> is advisory and non-blocking; it is up to the client to decide how
+long to wait after calling <code class="docutils literal notranslate"><span class="pre">SignalCancellation</span></code> to call <code class="docutils literal notranslate"><span class="pre">Close</span></code>. Typically, a provider should
+check for the cancellation signal while polling for completion of an operation. If cancelling
+while waiting for a create operation to be completed, then a “partial state” should be
+returned in the error to include the provider-created id.</p>
+</section>
+</section>
+<section id="custom-resource-lifecycle">
+<h2>Custom Resource Lifecycle<a class="headerlink" href="#custom-resource-lifecycle" title="Link to this heading">#</a></h2>
+<p>A custom resource has a well-defined lifecycle within the scope of a Pulumi stack. When a
+custom resource is registered by a Pulumi program, the Pulumi engine first determines
+whether the resource is being read, imported, or managed. Each of these operations
+involves a different interaction with the resource’s provider.</p>
+<p>If the resource is being read, the engine calls the resource’s provider’s <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> method
+to fetch the resource’s current state. This call to <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> includes the resource’s ID and
+any state provided by the user that may be necessary to read the resource.</p>
+<p>If the resource is being imported, the engine first calls the provider’s <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> method
+to fetch the resource’s current state and inputs. This call to <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> only includes the
+ID of the resource to import; that is, <em>any importable resource must be identifiable using
+its ID alone</em>. If the <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> succeeds, the engine calls the provider’s <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> method with
+the inputs returned by <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> and the inputs supplied by the user. If any of the inputs
+are invalid, the import fails. Finally, the engine calls the provider’s <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a> method with
+the inputs returned by <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> and the state returned by <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a>. If the call to <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a>
+indicates that there is no difference between the desired state described by the inputs
+and the actual state, the import succeeds. Otherwise, the import fails.</p>
+<p>If the resource is being managed, the engine first looks up the last registered inputs and
+last refreshed state for the resource’s URN. The engine then calls the resource’s
+provider’s <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> method with the last registered inputs (if any) and the inputs supplied
+by the user. If any of the inputs are invalid, the registration fails. Otherwise, the
+engine decides which operations to perform on the resource based on the difference between
+the desired state described by its inputs and its actual state. If the resource does not
+exist (i.e. there is no last refereshed state for its URN), the engine calls the
+provider’s <a class="reference internal" href="#create"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Create</span></code></span></a> method, which returns the ID and state of the created resource. If the
+resource does exist, the action taken depends on the differences (if any) between the
+desired and actual state of the resource.</p>
+<p>If the resource does exist, the engine calls the provider’s <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a> method with the
+inputs returned from <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a>, the resource’s ID, and the resource’s last refreshed state.
+If the result of the call indicates that there is no difference between the desired and
+actual state, no operation is necessary. Otherwise, the resource is either updated (if
+<a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a> does not indicate that the resource must be replaced) or replaced (if <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a> does
+indicate that the resource must be replaced).</p>
+<p>To update a resource, the engine calls the provider’s <a class="reference internal" href="#update"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Update</span></code></span></a> method with the inputs
+returned from <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a>, the resource’s ID, and its last refreshed state. <a class="reference internal" href="#update"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Update</span></code></span></a> returns
+the new state of the resource. The resource’s ID may not be changed by a call to <a class="reference internal" href="#update"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Update</span></code></span></a>.</p>
+<p>To replace a resource, the engine first calls <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> with an empty set of prior inputs
+and the inputs supplied with the resource’s registration. If <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> fails, the resource
+is not replaced. Otherwise, the inputs returned by this call to <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> will be used to
+create the replacement resource. Next, the engine inspects the resource options supplied
+with the resource’s registration and result of the call to <a class="reference internal" href="#diff"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Diff</span></code></span></a> to determine whether
+the replacement can be created before the original resource is deleted. This order of
+operations is preferred when possible to avoid downtime due to the lag between the
+deletion of the current resource and creation of its replacement. If the replacement may
+be created before the original is deleted, the engine calls the provider’s <a class="reference internal" href="#create"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Create</span></code></span></a> method
+with the re-checked inputs, then later calls <a class="reference internal" href="#delete"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Delete</span></code></span></a> with the resource’s ID and original
+state. If the resource must be deleted before its replacement can be created, the engine
+first deletes the transitive closure of resource that depend on the resource being
+replaced. Once these deletes have completed, the engine deletes the original resource by
+calling the provider’s <a class="reference internal" href="#delete"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Delete</span></code></span></a> method with the resource’s ID and original state. Finally,
+the engine creates the replacement resource by calling <a class="reference internal" href="#create"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Create</span></code></span></a> with the re-checked
+inputs.</p>
+<p>If a managed resource registered by a Pulumi program is not re-registered by the next
+successful execution of a Pulumi program in the resource’s stack, the engine deletes the
+resource by calling the resource’s provider’s <a class="reference internal" href="#delete"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Delete</span></code></span></a> method with the resource’s ID and
+last refereshed state.</p>
+<p>The diagram below summarizes the custom resource lifecycle. Detailed descriptions of each
+resource operation follow.</p>
+<p><img alt="Custom Resource Lifecycle Diagram" src="../../_images/resource-lifecycle.svg" /></p>
+<section id="lifecycle-methods">
+<h3>Lifecycle Methods<a class="headerlink" href="#lifecycle-methods" title="Link to this heading">#</a></h3>
+<section id="check">
+<h4>Check<a class="headerlink" href="#check" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Check</span></code> method is responsible for validating the inputs to a resource. It may
+optionally apply default values for unspecified input properties that cannot reasonably
+be computed outside the provider (e.g. because they require access to the provider’s
+internal data structures).</p>
+<section id="id1">
+<h5>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn</span></code>: the <a class="reference internal" href="#urns"><span class="xref myst">URN</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">olds</span></code>: the last recorded input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource, if any. If present, these
+inputs must have been generated by a prior call to <code class="docutils literal notranslate"><span class="pre">Check</span></code> or <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a>.
+These inputs will never contain <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">news</span></code>: the new input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. These inputs may have been provided by
+the user or generated by a call to <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a>, and may contain
+<a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h5>Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code>: the checked input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource with default values applied. The
+types of the properties in <code class="docutils literal notranslate"><span class="pre">inputs</span></code> should agree with the types of the
+resource’s input properties as described in its (schema)[#schema]. If <code class="docutils literal notranslate"><span class="pre">news</span></code>
+contains <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>, <code class="docutils literal notranslate"><span class="pre">inputs</span></code> may contain <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">failures</span></code>: any validation failures present in the inputs. These failures should be
+constrained to type and range mismatches. A failure is a tuple of a
+<a class="reference internal" href="#property-paths"><span class="xref myst">property path</span></a> and a failure reason.</p></li>
+</ul>
+</section>
+<section id="resource-options-interactions">
+<h5>Resource Options Interactions<a class="headerlink" href="#resource-options-interactions" title="Link to this heading">#</a></h5>
+<section id="ignorechanges">
+<h6>ignoreChanges<a class="headerlink" href="#ignorechanges" title="Link to this heading">#</a></h6>
+<p>Note that if the user specifies the
+<a class="reference external" href="https://www.pulumi.com/docs/concepts/options/ignorechanges/" rel="noreferer noopener" target="_blank">ignoreChanges</a> resource
+option, the value of <code class="docutils literal notranslate"><span class="pre">news</span></code> passed to <code class="docutils literal notranslate"><span class="pre">Check</span></code> may differ from the originals written in the
+program source or returned by Read. It will be pre-processed by replacing every
+<code class="docutils literal notranslate"><span class="pre">ignoreChanges</span></code> property by a matching value from the old inputs stored in the state.</p>
+</section>
+</section>
+</section>
+<section id="diff">
+<h4>Diff<a class="headerlink" href="#diff" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Diff</span></code> method is responsible for calculating the differences between the actual and
+desired state of a resource as represented by its last recorded state and new input
+<code class="docutils literal notranslate"><span class="pre">Object</span></code> as returned from <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> or <a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a> and the logical
+operation necessary to reconcile the two (i.e. no operation, an <code class="docutils literal notranslate"><span class="pre">Update,</span> <span class="pre">or</span> <span class="pre">a</span> </code>Replace`).</p>
+<section id="id3">
+<h5>Parameters<a class="headerlink" href="#id3" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn</span></code>: the <a class="reference internal" href="#urns"><span class="xref myst">URN</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: the <a class="reference internal" href="#custom-resources"><span class="xref myst">ID</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">olds</span></code>: the last recorded state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. This <code class="docutils literal notranslate"><span class="pre">Object</span></code> must have been
+generated by a call to <code class="docutils literal notranslate"><span class="pre">Create</span></code>, <code class="docutils literal notranslate"><span class="pre">Read</span></code>, or <code class="docutils literal notranslate"><span class="pre">Update</span></code>, and will never contain
+<a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">news</span></code>: the current input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource as returned by <a class="reference internal" href="#check"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Check</span></code></span></a> or
+<a class="reference internal" href="#read"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Read</span></code></span></a>. This value may contain <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ignoreChanges</span></code>: the set of <a class="reference internal" href="#property-paths"><span class="xref myst">property paths</span></a> to treat as unchanged.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h5>Results<a class="headerlink" href="#id4" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">detailedDiff</span></code>: the <a class="reference internal" href="#detailed-diffs"><span class="xref myst">detailed diff</span></a> between the resource’s actual and
+desired state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deleteBeforeReplace</span></code>: if true, the resource must be deleted before it is recreated.
+This flag is ignored if <code class="docutils literal notranslate"><span class="pre">detailedDiff</span></code> does not indicate that
+the resource needs to be replaced.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">changes</span></code>: an enumeration that indicates whether the provider detected any changes,
+detected no changes, or does not support detailed diff detection. Providers
+should return <code class="docutils literal notranslate"><span class="pre">Some</span></code> for this value if there are any entries in
+<code class="docutils literal notranslate"><span class="pre">detailedDiff</span></code>; otherwise they should return <code class="docutils literal notranslate"><span class="pre">None</span></code> to indicate no
+difference. If a provider returns <code class="docutils literal notranslate"><span class="pre">Unknown</span></code> for this value, it is the
+responsibility of the client to determine whether or not differences exist
+by comparing the resource’s last recorded <em>inputs</em> with its current inputs.</p></li>
+</ul>
+<p>In addition, the following properties should be returned for compatibility with older
+clients:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">replaceKeys</span></code>: the list of top-level input property names with changes that require that the
+resource be replaced.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stableKeys</span></code>: the list of top-level input property names that did not change and
+top-level output properties that are guaranteed not to change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">changedKeys</span></code>: the list of top-level input property names that changed.</p></li>
+</ul>
+<p>If a provider is unable to compute a diff because its configuration contained
+<a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>, it can return an error that indicates as such. The client should
+conservatively assume that the resource must be updated and warn the user.</p>
+</section>
+</section>
+<section id="detailed-diffs">
+<h4>Detailed Diffs<a class="headerlink" href="#detailed-diffs" title="Link to this heading">#</a></h4>
+<p>A detailed diff is a map from <a class="reference internal" href="#property-paths"><span class="xref myst">property paths</span></a> to change kinds that
+describes the differences between the actual and desired state of a resource and the
+operations necessary to reconcile the two.</p>
+<p>Each entry in a detailed diff has a change kind that describes how the value of and
+input property differs, whether or not the difference requires replacement, and which old
+value was used for determining the difference. The core change kinds are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Add</span></code>, which denotes an <code class="docutils literal notranslate"><span class="pre">Object</span></code> property or <code class="docutils literal notranslate"><span class="pre">Array</span></code> element that was added</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Update</span></code>, which denotes an <code class="docutils literal notranslate"><span class="pre">Object</span></code> property or <code class="docutils literal notranslate"><span class="pre">Array</span></code> element that was updated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Delete</span></code>, which denotes an <code class="docutils literal notranslate"><span class="pre">Object</span></code> property or <code class="docutils literal notranslate"><span class="pre">Array</span></code> element that was removed</p></li>
+</ul>
+<p>Each of these core kinds is paramaterized on whether or not the change requires
+replacement and whether the old value of the property should was read from the
+resource’s old input <code class="docutils literal notranslate"><span class="pre">Object</span></code> or old state <code class="docutils literal notranslate"><span class="pre">Object</span></code>.</p>
+<p><em>TODO</em>: the input/output flag is a bit clumsy, as it is the only part of the system
+that implies some correspondence between input and output <code class="docutils literal notranslate"><span class="pre">Object</span></code> schemas. It was
+chosen over an approach that used old/new values due in order to remove the possibility
+of a provider accidentally revealing a secret value as part of a diff. We should
+reconsider this approach if we can find an easy way to maintain secretness.</p>
+</section>
+<section id="create">
+<h4>Create<a class="headerlink" href="#create" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Create</span></code> method is responsible for creating a new instance of a resource from an
+input <code class="docutils literal notranslate"><span class="pre">Object</span></code> and returning the resource’s state <code class="docutils literal notranslate"><span class="pre">Object</span></code>. <code class="docutils literal notranslate"><span class="pre">Create</span></code> may be called during
+a <a class="reference internal" href="#preview"><span class="xref myst">preview</span></a> in order to compute a hypothetical state <code class="docutils literal notranslate"><span class="pre">Object</span></code> without actually
+creating the resource, in which case the <code class="docutils literal notranslate"><span class="pre">preview</span></code> argument will be <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<section id="id5">
+<h5>Parameters<a class="headerlink" href="#id5" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn</span></code>: the <a class="reference internal" href="#urns"><span class="xref myst">URN</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">news</span></code>: the input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. This value must have been generated by a
+prior call to <code class="docutils literal notranslate"><span class="pre">Check</span></code>. If <code class="docutils literal notranslate"><span class="pre">preview</span></code> is true, this value may contain
+<a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a> value; otherwise, it is guaranteed to be fully-known.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: the timeout for the create operation. If this value is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the provider
+should apply the default creation timeout for the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preview</span></code>: if true, the provider should calculate the state <code class="docutils literal notranslate"><span class="pre">Object</span></code> as accurately as it
+is able without actually creating the resource. Top-level properties that
+are present in the resource’s <a class="reference internal" href="#schema"><span class="xref myst">schema</span></a> but are omitted from its
+state <code class="docutils literal notranslate"><span class="pre">Object</span></code> should be treated as having the value <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>.
+Nested properties with values that are not computable must be explicitly set
+to <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>. If it is not possible to guarantee that the value
+produced by a preview will match the value that would be produced by actually
+creating the resource, the value should be left unknown.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h5>Results<a class="headerlink" href="#id6" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: the ID for the created resource. If <code class="docutils literal notranslate"><span class="pre">preview</span></code> is true, this value will be ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: the new state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. If <code class="docutils literal notranslate"><span class="pre">preview</span></code> is true, this value may
+contain <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="update">
+<h4>Update<a class="headerlink" href="#update" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Update</span></code> method is responsible for updating a resource in-place in order given its
+last recorded state <code class="docutils literal notranslate"><span class="pre">Object</span></code> and current input <code class="docutils literal notranslate"><span class="pre">Object</span></code>. <code class="docutils literal notranslate"><span class="pre">Update</span></code> may be called during
+a <a class="reference internal" href="#preview"><span class="xref myst">preview</span></a> in order to compute a hypothetical state <code class="docutils literal notranslate"><span class="pre">Object</span></code> without actually
+updating the resource, in which case the <code class="docutils literal notranslate"><span class="pre">preview</span></code> argument will be <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<section id="id7">
+<h5>Parameters<a class="headerlink" href="#id7" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn</span></code>: the <a class="reference internal" href="#urns"><span class="xref myst">URN</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: the <a class="reference internal" href="#custom-resources"><span class="xref myst">ID</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">olds</span></code>: the last recorded state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. This <code class="docutils literal notranslate"><span class="pre">Object</span></code> must have been
+generated by a call to <code class="docutils literal notranslate"><span class="pre">Create</span></code>, <code class="docutils literal notranslate"><span class="pre">Read</span></code>, or <code class="docutils literal notranslate"><span class="pre">Update</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">news</span></code>: the input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. This value must have been generated by a
+prior call to <code class="docutils literal notranslate"><span class="pre">Check</span></code>. If <code class="docutils literal notranslate"><span class="pre">preview</span></code> is true, this value may contain
+<a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a> value; otherwise, it is guaranteed to be fully-known.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: the timeout for the update operation. If this value is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the provider
+should apply the default update timeout for the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ignoreChanges</span></code>: the set of <a class="reference internal" href="#property-paths"><span class="xref myst">property paths</span></a> to treat as unchanged.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preview</span></code>: if true, the provider should calculate the state <code class="docutils literal notranslate"><span class="pre">Object</span></code> as accurately as it
+is able without actually updating the resource. Top-level properties that
+are present in the resource’s <a class="reference internal" href="#schema"><span class="xref myst">schema</span></a> but are omitted from its
+state <code class="docutils literal notranslate"><span class="pre">Object</span></code> should be treated as having the value <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>.
+Nested properties with values that are not computable must be explicitly set
+to <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code></span></a>. If it is not possible to guarantee that the value
+produced by a preview will match the value that would be produced by actually
+updating the resource, the value should be left unknown.</p></li>
+</ul>
+</section>
+<section id="id8">
+<h5>Results<a class="headerlink" href="#id8" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: the new state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. If <code class="docutils literal notranslate"><span class="pre">preview</span></code> is true, this value may
+contain <a class="reference internal" href="#unknowns"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">Unknown</span></code>s</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="read">
+<h4>Read<a class="headerlink" href="#read" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Read</span></code> method is responsible for reading the current inputs and state <code class="docutils literal notranslate"><span class="pre">Object</span></code>s for a
+resource. <code class="docutils literal notranslate"><span class="pre">Read</span></code> may be called during a <a class="reference internal" href="#refresh"><span class="xref myst">refresh</span></a> or <a class="reference internal" href="#import"><span class="xref myst">import</span></a> of a
+managed resource or during a <a class="reference internal" href="#preview"><span class="xref myst">preview</span></a> or <a class="reference internal" href="#update"><span class="xref myst">update</span></a> for an external
+resource.</p>
+<section id="id9">
+<h5>Parameters<a class="headerlink" href="#id9" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn</span></code>: the <a class="reference internal" href="#urns"><span class="xref myst">URN</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: the <a class="reference internal" href="#custom-resources"><span class="xref myst">ID</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code>: the last recoded input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource, if any. If present, this
+<code class="docutils literal notranslate"><span class="pre">Object</span></code> must have been generated by a call to <code class="docutils literal notranslate"><span class="pre">Check</span></code> or <code class="docutils literal notranslate"><span class="pre">Read</span></code>. This
+parameter is omitted if the resource is being <a class="reference internal" href="#import"><span class="xref myst">imported</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: the last recorded state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource, if any. This <code class="docutils literal notranslate"><span class="pre">Object</span></code> must
+have been generated by a call to <code class="docutils literal notranslate"><span class="pre">Create</span></code>, <code class="docutils literal notranslate"><span class="pre">Read</span></code>, or <code class="docutils literal notranslate"><span class="pre">Update</span></code>. This property
+is only present during a <a class="reference internal" href="#refresh"><span class="xref myst">refresh</span></a>, and must not be required for a
+resource to support <a class="reference internal" href="#import"><span class="xref myst">importing</span></a>.</p></li>
+</ul>
+</section>
+<section id="id10">
+<h5>Results<a class="headerlink" href="#id10" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">newInputs</span></code>: the new input <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. If the provider does not support
+<a class="reference internal" href="#detailed-diffs"><span class="xref myst">detailed diffs</span></a>, these inputs may be used by the engine
+to determine whether or not the resource’s actual state differs from its
+desired state during the next <a class="reference internal" href="#preview"><span class="xref myst">preview</span></a> or <a class="reference internal" href="#update"><span class="xref myst">update</span></a>.
+The shape of the returned <code class="docutils literal notranslate"><span class="pre">Object</span></code> should be compatible with the resource’s
+<a class="reference internal" href="#schema"><span class="xref myst">schema</span></a>. If the resource is being <a class="reference internal" href="#import"><span class="xref myst">imported</span></a>, an input
+<code class="docutils literal notranslate"><span class="pre">Object</span></code> must be returned. Otherwise, unless the input <code class="docutils literal notranslate"><span class="pre">Object</span></code> is used for
+computing default property values or the provider does not support
+<a class="reference internal" href="#detailed-diffs"><span class="xref myst">detailed diffs</span></a>, <code class="docutils literal notranslate"><span class="pre">newInputs</span></code> should simply reflect the
+value of <code class="docutils literal notranslate"><span class="pre">inputs</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">newState</span></code>: the new state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource.</p></li>
+</ul>
+</section>
+</section>
+<section id="delete">
+<h4>Delete<a class="headerlink" href="#delete" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Delete</span></code> method is responsible for deleting a resource given its ID and state
+<code class="docutils literal notranslate"><span class="pre">Object</span></code>.</p>
+<section id="id11">
+<h5>Parameters<a class="headerlink" href="#id11" title="Link to this heading">#</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn</span></code>: the <a class="reference internal" href="#urns"><span class="xref myst">URN</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: the <a class="reference internal" href="#custom-resources"><span class="xref myst">ID</span></a> of the resource.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: the last recorded state <code class="docutils literal notranslate"><span class="pre">Object</span></code> for the resource. This <code class="docutils literal notranslate"><span class="pre">Object</span></code> must have been
+generated by a call to <code class="docutils literal notranslate"><span class="pre">Create</span></code>, <code class="docutils literal notranslate"><span class="pre">Read</span></code>, or <code class="docutils literal notranslate"><span class="pre">Update</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: the timeout for the delete operation. If this value is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the provider
+should apply the default deletion timeout for the resource.</p></li>
+</ul>
+</section>
+<section id="id12">
+<h5>Results<a class="headerlink" href="#id12" title="Link to this heading">#</a></h5>
+<p>None.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="component-resource-lifecycle">
+<h2>Component Resource Lifecycle<a class="headerlink" href="#component-resource-lifecycle" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>TODO: user-level programming model</p></li>
+</ul>
+<section id="construct">
+<h3>Construct<a class="headerlink" href="#construct" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO: brief, parameters, results, etc.</p></li>
+</ul>
+</section>
+</section>
+<section id="provider-functions">
+<h2>Provider Functions<a class="headerlink" href="#provider-functions" title="Link to this heading">#</a></h2>
+<section id="invoke">
+<h3>Invoke<a class="headerlink" href="#invoke" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO</p></li>
+</ul>
+</section>
+<section id="streaminvoke">
+<h3>StreamInvoke<a class="headerlink" href="#streaminvoke" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO</p></li>
+</ul>
+</section>
+</section>
+<section id="cli-scenarios">
+<h2>CLI Scenarios<a class="headerlink" href="#cli-scenarios" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>TODO:</p>
+<ul>
+<li><p>preview</p></li>
+<li><p>update</p></li>
+<li><p>import</p></li>
+<li><p>refresh</p></li>
+<li><p>destroy</p></li>
+</ul>
+</li>
+</ul>
+<section id="preview">
+<h3>Preview<a class="headerlink" href="#preview" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO:</p>
+<ul>
+<li><p>check</p></li>
+<li><p>diff</p></li>
+<li><p>create/update preview, read operation</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id13">
+<h3>Update<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO:</p>
+<ul>
+<li><p>check</p></li>
+<li><p>diff</p></li>
+<li><p>create/update/read/delete operation</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="import">
+<h3>Import<a class="headerlink" href="#import" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO: read operation</p></li>
+</ul>
+</section>
+<section id="refresh">
+<h3>Refresh<a class="headerlink" href="#refresh" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO: read operations</p></li>
+</ul>
+</section>
+<section id="destroy">
+<h3>Destroy<a class="headerlink" href="#destroy" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO: delete operation</p></li>
+</ul>
+</section>
+</section>
+<section id="appendix">
+<h2>Appendix<a class="headerlink" href="#appendix" title="Link to this heading">#</a></h2>
+<section id="out-of-process-plugin-lifecycle">
+<h3>Out-of-Process Plugin Lifecycle<a class="headerlink" href="#out-of-process-plugin-lifecycle" title="Link to this heading">#</a></h3>
+</section>
+<section id="grpc-interface">
+<h3>gRPC Interface<a class="headerlink" href="#grpc-interface" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>TODO:</p>
+<ul>
+<li><p>feature negotiation</p></li>
+<li><p>data representation</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provider-programming-model">Provider Programming Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#urns">URNs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-resources">Custom Resources</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#component-resources">Component Resources</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exchange-types">Data Exchange Types</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assets-and-archives">Assets and Archives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-references">Resource References</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unknowns">Unknowns</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#secrets">Secrets</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#property-paths">Property Paths</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schema">Schema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provider-lifecycle">Provider Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lookup">Lookup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkconfig">CheckConfig</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diffconfig">DiffConfig</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configure">Configure</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown">Shutdown</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-resource-lifecycle">Custom Resource Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifecycle-methods">Lifecycle Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check">Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Results</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-options-interactions">Resource Options Interactions</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#ignorechanges">ignoreChanges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#diff">Diff</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-diffs">Detailed Diffs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create">Create</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update">Update</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#read">Read</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Results</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#delete">Delete</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Parameters</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#component-resource-lifecycle">Component Resource Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construct">Construct</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#provider-functions">Provider Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invoke">Invoke</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streaminvoke">StreamInvoke</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scenarios">CLI Scenarios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preview">Preview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import">Import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refresh">Refresh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#destroy">Destroy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#out-of-process-plugin-lifecycle">Out-of-Process Plugin Lifecycle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grpc-interface">gRPC Interface</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

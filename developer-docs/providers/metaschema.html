@@ -1,0 +1,1453 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pulumi Package Metaschema &#8212; Pulumi developer documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b63826fa" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer-docs/providers/metaschema';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../docs/README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-light" alt="Pulumi developer documentation - Home"/>
+    <script>document.write(`<img src="https://www.pulumi.com/images/logo/logo-on-white-box.svg" class="logo__image only-dark" alt="Pulumi developer documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/writing.html">Writing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/diagrams.html">Diagrams</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/developer-docs/providers/metaschema.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pulumi Package Metaschema</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attribution"><code class="docutils literal notranslate"><span class="pre">attribution</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config"><code class="docutils literal notranslate"><span class="pre">config</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#required"><code class="docutils literal notranslate"><span class="pre">required</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#variables"><code class="docutils literal notranslate"><span class="pre">variables</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displayname"><code class="docutils literal notranslate"><span class="pre">displayName</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions"><code class="docutils literal notranslate"><span class="pre">functions</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#homepage"><code class="docutils literal notranslate"><span class="pre">homepage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keywords"><code class="docutils literal notranslate"><span class="pre">keywords</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#language"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#license"><code class="docutils literal notranslate"><span class="pre">license</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logourl"><code class="docutils literal notranslate"><span class="pre">logoUrl</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meta"><code class="docutils literal notranslate"><span class="pre">meta</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#moduleformat-required"><code class="docutils literal notranslate"><span class="pre">moduleFormat</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-required"><code class="docutils literal notranslate"><span class="pre">name</span></code> (<em>required</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plugindownloadurl"><code class="docutils literal notranslate"><span class="pre">pluginDownloadUrl</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#provider"><code class="docutils literal notranslate"><span class="pre">provider</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#publisher"><code class="docutils literal notranslate"><span class="pre">publisher</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repository"><code class="docutils literal notranslate"><span class="pre">repository</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources"><code class="docutils literal notranslate"><span class="pre">resources</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types"><code class="docutils literal notranslate"><span class="pre">types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias-definition">Alias Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#type"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array-type">Array Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#items-required"><code class="docutils literal notranslate"><span class="pre">items</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#type-required"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-type-definition">Enum Type Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-required"><code class="docutils literal notranslate"><span class="pre">enum</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-value-definition">Enum Value Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecationmessage"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#value-required"><code class="docutils literal notranslate"><span class="pre">value</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definition">Function Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inputs"><code class="docutils literal notranslate"><span class="pre">inputs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isoverlay"><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs"><code class="docutils literal notranslate"><span class="pre">outputs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-type">Map Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additionalproperties"><code class="docutils literal notranslate"><span class="pre">additionalProperties</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-type">Named Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ref-required"><code class="docutils literal notranslate"><span class="pre">$ref</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-type-definition">Object Type Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-type-details">Object Type Details</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">properties</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">required</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-type">Primitive Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#property-definition">Property Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#const"><code class="docutils literal notranslate"><span class="pre">const</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default"><code class="docutils literal notranslate"><span class="pre">default</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defaultinfo"><code class="docutils literal notranslate"><span class="pre">defaultInfo</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-required"><code class="docutils literal notranslate"><span class="pre">environment</span></code> (<em>required</em>)</a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#replaceonchanges"><code class="docutils literal notranslate"><span class="pre">replaceOnChanges</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#willreplaceonchanges"><code class="docutils literal notranslate"><span class="pre">willReplaceOnChanges</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#secret"><code class="docutils literal notranslate"><span class="pre">secret</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-definition">Resource Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aliases"><code class="docutils literal notranslate"><span class="pre">aliases</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inputproperties"><code class="docutils literal notranslate"><span class="pre">inputProperties</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#iscomponent"><code class="docutils literal notranslate"><span class="pre">isComponent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34"><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaysupportedlanguages"><code class="docutils literal notranslate"><span class="pre">overlaySupportedLanguages</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#methods"><code class="docutils literal notranslate"><span class="pre">methods</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#requiredinputs"><code class="docutils literal notranslate"><span class="pre">requiredInputs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stateinputs"><code class="docutils literal notranslate"><span class="pre">stateInputs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token">Token</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-definition">Type Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id36"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id37"><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id38"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-reference">Type Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plain"><code class="docutils literal notranslate"><span class="pre">plain</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#union-type">Union Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#discriminator"><code class="docutils literal notranslate"><span class="pre">discriminator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#mapping"><code class="docutils literal notranslate"><span class="pre">mapping</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#propertyname-required"><code class="docutils literal notranslate"><span class="pre">propertyName</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oneof-required"><code class="docutils literal notranslate"><span class="pre">oneOf</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pulumi-package-metaschema">
+<h1>Pulumi Package Metaschema<a class="headerlink" href="#pulumi-package-metaschema" title="Link to this heading">#</a></h1>
+<p>A description of the schema for a Pulumi Package</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="attribution">
+<h3><code class="docutils literal notranslate"><span class="pre">attribution</span></code><a class="headerlink" href="#attribution" title="Link to this heading">#</a></h3>
+<p>Freeform text attribution of derived work, if required.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="config">
+<h3><code class="docutils literal notranslate"><span class="pre">config</span></code><a class="headerlink" href="#config" title="Link to this heading">#</a></h3>
+<p>The package’s configuration variables.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id1">
+<h4>Properties<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<hr class="docutils" />
+<section id="required">
+<h5><code class="docutils literal notranslate"><span class="pre">required</span></code><a class="headerlink" href="#required" title="Link to this heading">#</a></h5>
+<p>A list of the names of the package’s required configuration variables.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="variables">
+<h5><code class="docutils literal notranslate"><span class="pre">variables</span></code><a class="headerlink" href="#variables" title="Link to this heading">#</a></h5>
+<p>A map from variable name to propertySpec that describes a package’s configuration variables.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Additional properties: <a class="reference internal" href="#property-definition"><span class="xref myst">Property Definition</span></a></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="description">
+<h3><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
+<p>The description of the package. Descriptions are interpreted as Markdown.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="displayname">
+<h3><code class="docutils literal notranslate"><span class="pre">displayName</span></code><a class="headerlink" href="#displayname" title="Link to this heading">#</a></h3>
+<p>The human-friendly name of the package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="functions">
+<h3><code class="docutils literal notranslate"><span class="pre">functions</span></code><a class="headerlink" href="#functions" title="Link to this heading">#</a></h3>
+<p>A map from token to functionSpec that describes the set of functions defined by this package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Property names: <a class="reference internal" href="#token"><span class="xref myst">Token</span></a></p>
+<p>Additional properties: <a class="reference internal" href="#function-definition"><span class="xref myst">Function Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="homepage">
+<h3><code class="docutils literal notranslate"><span class="pre">homepage</span></code><a class="headerlink" href="#homepage" title="Link to this heading">#</a></h3>
+<p>The package’s homepage.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="keywords">
+<h3><code class="docutils literal notranslate"><span class="pre">keywords</span></code><a class="headerlink" href="#keywords" title="Link to this heading">#</a></h3>
+<p>The list of keywords that are associated with the package, if any.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="language">
+<h3><code class="docutils literal notranslate"><span class="pre">language</span></code><a class="headerlink" href="#language" title="Link to this heading">#</a></h3>
+<p>Additional language-specific data about the package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="license">
+<h3><code class="docutils literal notranslate"><span class="pre">license</span></code><a class="headerlink" href="#license" title="Link to this heading">#</a></h3>
+<p>The name of the license used for the package’s contents.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="logourl">
+<h3><code class="docutils literal notranslate"><span class="pre">logoUrl</span></code><a class="headerlink" href="#logourl" title="Link to this heading">#</a></h3>
+<p>The URL of the package’s logo, if any.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="meta">
+<h3><code class="docutils literal notranslate"><span class="pre">meta</span></code><a class="headerlink" href="#meta" title="Link to this heading">#</a></h3>
+<p>Format metadata about this package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id2">
+<h4>Properties<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<hr class="docutils" />
+<section id="moduleformat-required">
+<h5><code class="docutils literal notranslate"><span class="pre">moduleFormat</span></code> (<em>required</em>)<a class="headerlink" href="#moduleformat-required" title="Link to this heading">#</a></h5>
+<p>A regex that is used by the importer to extract a module name from the module portion of a type token. Packages that use the module format “namespace1/namespace2/…/namespaceN” do not need to specify a format. The regex must define one capturing group that contains the module name, which must be formatted as “namespace1/namespace2/…namespaceN”.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Format: <code class="docutils literal notranslate"><span class="pre">regex</span></code></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="name-required">
+<h3><code class="docutils literal notranslate"><span class="pre">name</span></code> (<em>required</em>)<a class="headerlink" href="#name-required" title="Link to this heading">#</a></h3>
+<p>The unqualified name of the package (e.g. “aws”, “azure”, “gcp”, “kubernetes”, “random”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Pattern: <code class="docutils literal notranslate"><span class="pre">^[a-zA-Z][-a-zA-Z0-9_]*$</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="plugindownloadurl">
+<h3><code class="docutils literal notranslate"><span class="pre">pluginDownloadUrl</span></code><a class="headerlink" href="#plugindownloadurl" title="Link to this heading">#</a></h3>
+<p>The URL to use when downloading the provider plugin binary.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="provider">
+<h3><code class="docutils literal notranslate"><span class="pre">provider</span></code><a class="headerlink" href="#provider" title="Link to this heading">#</a></h3>
+<p>The provider type for this package.</p>
+<p><a class="reference internal" href="#resource-definition"><span class="xref myst">Resource Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="publisher">
+<h3><code class="docutils literal notranslate"><span class="pre">publisher</span></code><a class="headerlink" href="#publisher" title="Link to this heading">#</a></h3>
+<p>The name of the person or organization that authored and published the package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="repository">
+<h3><code class="docutils literal notranslate"><span class="pre">repository</span></code><a class="headerlink" href="#repository" title="Link to this heading">#</a></h3>
+<p>The URL at which the package’s sources can be found.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="resources">
+<h3><code class="docutils literal notranslate"><span class="pre">resources</span></code><a class="headerlink" href="#resources" title="Link to this heading">#</a></h3>
+<p>A map from type token to resourceSpec that describes the set of resources and components defined by this package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Property names: <a class="reference internal" href="#token"><span class="xref myst">Token</span></a></p>
+<p>Additional properties: <a class="reference internal" href="#resource-definition"><span class="xref myst">Resource Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="types">
+<h3><code class="docutils literal notranslate"><span class="pre">types</span></code><a class="headerlink" href="#types" title="Link to this heading">#</a></h3>
+<p>A map from type token to complexTypeSpec that describes the set of complex types (i.e. object, enum) defined by this package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Property names: <a class="reference internal" href="#token"><span class="xref myst">Token</span></a></p>
+<p>Additional properties: <a class="reference internal" href="#type-definition"><span class="xref myst">Type Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="version">
+<h3><code class="docutils literal notranslate"><span class="pre">version</span></code><a class="headerlink" href="#version" title="Link to this heading">#</a></h3>
+<p>The version of the package. The version must be valid semver.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Pattern: <code class="docutils literal notranslate"><span class="pre">^v?(?P&lt;major&gt;0|[1-9]\d*)\.(?P&lt;minor&gt;0|[1-9]\d*)\.(?P&lt;patch&gt;0|[1-9]\d*)(?:-(?P&lt;prerelease&gt;(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P&lt;buildmetadata&gt;[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$</span></code></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="alias-definition">
+<h2>Alias Definition<a class="headerlink" href="#alias-definition" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id3">
+<h3>Properties<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="name">
+<h4><code class="docutils literal notranslate"><span class="pre">name</span></code><a class="headerlink" href="#name" title="Link to this heading">#</a></h4>
+<p>The name portion of the alias, if any</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="project">
+<h4><code class="docutils literal notranslate"><span class="pre">project</span></code><a class="headerlink" href="#project" title="Link to this heading">#</a></h4>
+<p>The project portion of the alias, if any</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="type">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code><a class="headerlink" href="#type" title="Link to this heading">#</a></h4>
+<p>The type portion of the alias, if any</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="array-type">
+<h2>Array Type<a class="headerlink" href="#array-type" title="Link to this heading">#</a></h2>
+<p>A reference to an array type. The “type” property must be set to “array” and the “items” property must be present. No other properties may be present.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id4">
+<h3>Properties<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="items-required">
+<h4><code class="docutils literal notranslate"><span class="pre">items</span></code> (<em>required</em>)<a class="headerlink" href="#items-required" title="Link to this heading">#</a></h4>
+<p>The element type of the array</p>
+<p><a class="reference internal" href="#type-reference"><span class="xref myst">Type Reference</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="type-required">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)<a class="headerlink" href="#type-required" title="Link to this heading">#</a></h4>
+<p>Constant: <code class="docutils literal notranslate"><span class="pre">&quot;array&quot;</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="enum-type-definition">
+<h2>Enum Type Definition<a class="headerlink" href="#enum-type-definition" title="Link to this heading">#</a></h2>
+<p>Describes an enum type</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id5">
+<h3>Properties<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="enum-required">
+<h4><code class="docutils literal notranslate"><span class="pre">enum</span></code> (<em>required</em>)<a class="headerlink" href="#enum-required" title="Link to this heading">#</a></h4>
+<p>The list of possible values for the enum</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <a class="reference internal" href="#enum-value-definition"><span class="xref myst">Enum Value Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<p>The underlying primitive type of the enum</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Enum: <code class="docutils literal notranslate"><span class="pre">&quot;boolean&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;integer&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;number&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;string&quot;</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="enum-value-definition">
+<h2>Enum Value Definition<a class="headerlink" href="#enum-value-definition" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id7">
+<h3>Properties<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="deprecationmessage">
+<h4><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code><a class="headerlink" href="#deprecationmessage" title="Link to this heading">#</a></h4>
+<p>Indicates whether the value is deprecated.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h4><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#id8" title="Link to this heading">#</a></h4>
+<p>The description of the enum value, if any. Interpreted as Markdown.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h4><code class="docutils literal notranslate"><span class="pre">name</span></code><a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
+<p>If present, overrides the name of the enum value that would usually be derived from the value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="value-required">
+<h4><code class="docutils literal notranslate"><span class="pre">value</span></code> (<em>required</em>)<a class="headerlink" href="#value-required" title="Link to this heading">#</a></h4>
+<p>The enum value itself</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code> | <code class="docutils literal notranslate"><span class="pre">integer</span></code> | <code class="docutils literal notranslate"><span class="pre">number</span></code> | <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="function-definition">
+<h2>Function Definition<a class="headerlink" href="#function-definition" title="Link to this heading">#</a></h2>
+<p>Describes a function.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id10">
+<h3>Properties<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id11">
+<h4><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code><a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
+<p>Indicates whether the function is deprecated</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h4><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
+<p>The description of the function, if any. Interpreted as Markdown.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="inputs">
+<h4><code class="docutils literal notranslate"><span class="pre">inputs</span></code><a class="headerlink" href="#inputs" title="Link to this heading">#</a></h4>
+<p>The bag of input values for the function, if any.</p>
+<p><a class="reference internal" href="#object-type-details"><span class="xref myst">Object Type Details</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="isoverlay">
+<h4><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code><a class="headerlink" href="#isoverlay" title="Link to this heading">#</a></h4>
+<p>Indicates that the implementation of the function should not be generated from the schema, and is instead provided out-of-band by the package author</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h4><code class="docutils literal notranslate"><span class="pre">language</span></code><a class="headerlink" href="#id13" title="Link to this heading">#</a></h4>
+<p>Additional language-specific data about the function.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="outputs">
+<h4><code class="docutils literal notranslate"><span class="pre">outputs</span></code><a class="headerlink" href="#outputs" title="Link to this heading">#</a></h4>
+<p>The bag of output values for the function, if any.</p>
+<p><a class="reference internal" href="#object-type-details"><span class="xref myst">Object Type Details</span></a></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="map-type">
+<h2>Map Type<a class="headerlink" href="#map-type" title="Link to this heading">#</a></h2>
+<p>A reference to a map type. The “type” property must be set to “object” and the “additionalProperties” property may be present. No other properties may be present.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id14">
+<h3>Properties<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="additionalproperties">
+<h4><code class="docutils literal notranslate"><span class="pre">additionalProperties</span></code><a class="headerlink" href="#additionalproperties" title="Link to this heading">#</a></h4>
+<p>The element type of the map. Defaults to “string” when omitted.</p>
+<p><a class="reference internal" href="#type-reference"><span class="xref myst">Type Reference</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="id15">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
+<p>Constant: <code class="docutils literal notranslate"><span class="pre">&quot;object&quot;</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="named-type">
+<h2>Named Type<a class="headerlink" href="#named-type" title="Link to this heading">#</a></h2>
+<p>A reference to a type in this or another document. The “$ref” property must be present. The “type” property is ignored if it is present. No other properties may be present.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id16">
+<h3>Properties<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="ref-required">
+<h4><code class="docutils literal notranslate"><span class="pre">$ref</span></code> (<em>required</em>)<a class="headerlink" href="#ref-required" title="Link to this heading">#</a></h4>
+<p>The URI of the referenced type. For example, the built-in Archive, Asset, and Any
+types are referenced as “pulumi.json#/Archive”, “pulumi.json#/Asset”, and “pulumi.json#/Any”, respectively.
+A type from this document is referenced as “#/types/pulumi:type:token”.
+A type from another document is referenced as “path#/types/pulumi:type:token”, where path is of the form:
+“/provider/vX.Y.Z/schema.json” or “pulumi.json” or “http[s]://example.com/provider/vX.Y.Z/schema.json”
+A resource from this document is referenced as “#/resources/pulumi:type:token”.
+A resource from another document is referenced as “path#/resources/pulumi:type:token”, where path is of the form:
+“/provider/vX.Y.Z/schema.json” or “pulumi.json” or “http[s]://example.com/provider/vX.Y.Z/schema.json”</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Format: <code class="docutils literal notranslate"><span class="pre">uri-reference</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id17">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code><a class="headerlink" href="#id17" title="Link to this heading">#</a></h4>
+<p>ignored; present for compatibility with existing schemas</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="object-type-definition">
+<h2>Object Type Definition<a class="headerlink" href="#object-type-definition" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>All of:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#object-type-details"><span class="xref myst">Object Type Details</span></a></p></li>
+</ul>
+<section id="id18">
+<h3>Properties<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id19">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code><a class="headerlink" href="#id19" title="Link to this heading">#</a></h4>
+<p>Constant: <code class="docutils literal notranslate"><span class="pre">&quot;object&quot;</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="object-type-details">
+<h2>Object Type Details<a class="headerlink" href="#object-type-details" title="Link to this heading">#</a></h2>
+<p>Describes an object type</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id20">
+<h3>Properties<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id21">
+<h4><code class="docutils literal notranslate"><span class="pre">properties</span></code><a class="headerlink" href="#id21" title="Link to this heading">#</a></h4>
+<p>A map from property name to propertySpec that describes the object’s properties.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Additional properties: <a class="reference internal" href="#property-definition"><span class="xref myst">Property Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h4><code class="docutils literal notranslate"><span class="pre">required</span></code><a class="headerlink" href="#id22" title="Link to this heading">#</a></h4>
+<p>A list of the names of an object type’s required properties. These properties must be set for inputs and will always be set for outputs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="primitive-type">
+<h2>Primitive Type<a class="headerlink" href="#primitive-type" title="Link to this heading">#</a></h2>
+<p>A reference to a primitive type. A primitive type must have only the “type” property set.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id23">
+<h3>Properties<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id24">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)<a class="headerlink" href="#id24" title="Link to this heading">#</a></h4>
+<p>The primitive type, if any</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Enum: <code class="docutils literal notranslate"><span class="pre">&quot;boolean&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;integer&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;number&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;string&quot;</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="property-definition">
+<h2>Property Definition<a class="headerlink" href="#property-definition" title="Link to this heading">#</a></h2>
+<p>Describes an object or resource property</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>All of:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#type-reference"><span class="xref myst">Type Reference</span></a></p></li>
+</ul>
+<section id="id25">
+<h3>Properties<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="const">
+<h4><code class="docutils literal notranslate"><span class="pre">const</span></code><a class="headerlink" href="#const" title="Link to this heading">#</a></h4>
+<p>The constant value for the property, if any. The type of the value must be assignable to the type of the property.</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code> | <code class="docutils literal notranslate"><span class="pre">number</span></code> | <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="default">
+<h4><code class="docutils literal notranslate"><span class="pre">default</span></code><a class="headerlink" href="#default" title="Link to this heading">#</a></h4>
+<p>The default value for the property, if any. The type of the value must be assignable to the type of the property.</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code> | <code class="docutils literal notranslate"><span class="pre">number</span></code> | <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="defaultinfo">
+<h4><code class="docutils literal notranslate"><span class="pre">defaultInfo</span></code><a class="headerlink" href="#defaultinfo" title="Link to this heading">#</a></h4>
+<p>Additional information about the property’s default value, if any.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id26">
+<h5>Properties<a class="headerlink" href="#id26" title="Link to this heading">#</a></h5>
+<hr class="docutils" />
+<section id="environment-required">
+<h6><code class="docutils literal notranslate"><span class="pre">environment</span></code> (<em>required</em>)<a class="headerlink" href="#environment-required" title="Link to this heading">#</a></h6>
+<p>A set of environment variables to probe for a default value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id27">
+<h6><code class="docutils literal notranslate"><span class="pre">language</span></code><a class="headerlink" href="#id27" title="Link to this heading">#</a></h6>
+<p>Additional language-specific data about the default value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id28">
+<h4><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code><a class="headerlink" href="#id28" title="Link to this heading">#</a></h4>
+<p>Indicates whether the property is deprecated</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id29">
+<h4><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#id29" title="Link to this heading">#</a></h4>
+<p>The description of the property, if any. Interpreted as Markdown.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id30">
+<h4><code class="docutils literal notranslate"><span class="pre">language</span></code><a class="headerlink" href="#id30" title="Link to this heading">#</a></h4>
+<p>Additional language-specific data about the property.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="replaceonchanges">
+<h4><code class="docutils literal notranslate"><span class="pre">replaceOnChanges</span></code><a class="headerlink" href="#replaceonchanges" title="Link to this heading">#</a></h4>
+<p>Specifies whether a change to the property causes its containing resource to be replaced instead of updated (default false).</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="willreplaceonchanges">
+<h4><code class="docutils literal notranslate"><span class="pre">willReplaceOnChanges</span></code><a class="headerlink" href="#willreplaceonchanges" title="Link to this heading">#</a></h4>
+<p>Indicates that the provider will replace the resource when this property is changed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="secret">
+<h4><code class="docutils literal notranslate"><span class="pre">secret</span></code><a class="headerlink" href="#secret" title="Link to this heading">#</a></h4>
+<p>Specifies whether the property is secret (default false).</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="resource-definition">
+<h2>Resource Definition<a class="headerlink" href="#resource-definition" title="Link to this heading">#</a></h2>
+<p>Describes a resource or component.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>All of:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#object-type-details"><span class="xref myst">Object Type Details</span></a></p></li>
+</ul>
+<section id="id31">
+<h3>Properties<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="aliases">
+<h4><code class="docutils literal notranslate"><span class="pre">aliases</span></code><a class="headerlink" href="#aliases" title="Link to this heading">#</a></h4>
+<p>The list of aliases for the resource.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <a class="reference internal" href="#alias-definition"><span class="xref myst">Alias Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="id32">
+<h4><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code><a class="headerlink" href="#id32" title="Link to this heading">#</a></h4>
+<p>Indicates whether the resource is deprecated</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id33">
+<h4><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#id33" title="Link to this heading">#</a></h4>
+<p>The description of the resource, if any. Interpreted as Markdown.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="inputproperties">
+<h4><code class="docutils literal notranslate"><span class="pre">inputProperties</span></code><a class="headerlink" href="#inputproperties" title="Link to this heading">#</a></h4>
+<p>A map from property name to propertySpec that describes the resource’s input properties.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Additional properties: <a class="reference internal" href="#property-definition"><span class="xref myst">Property Definition</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="iscomponent">
+<h4><code class="docutils literal notranslate"><span class="pre">isComponent</span></code><a class="headerlink" href="#iscomponent" title="Link to this heading">#</a></h4>
+<p>Indicates whether the resource is a component.</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id34">
+<h4><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code><a class="headerlink" href="#id34" title="Link to this heading">#</a></h4>
+<p>Indicates that the implementation of the resource should not be generated from the schema, and is instead provided out-of-band by the package author</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="overlaysupportedlanguages">
+<h4><code class="docutils literal notranslate"><span class="pre">overlaySupportedLanguages</span></code><a class="headerlink" href="#overlaysupportedlanguages" title="Link to this heading">#</a></h4>
+<p>Indicates what languages the overlay supports. This only has an effect if the Resource is an Overlay (IsOverlay == true).
+Supported values are “nodejs”, “python”, “go”, “csharp”, “java”, “yaml”.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="methods">
+<h4><code class="docutils literal notranslate"><span class="pre">methods</span></code><a class="headerlink" href="#methods" title="Link to this heading">#</a></h4>
+<p>A map from method name to function token that describes the resource’s method set.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Additional properties: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="requiredinputs">
+<h4><code class="docutils literal notranslate"><span class="pre">requiredInputs</span></code><a class="headerlink" href="#requiredinputs" title="Link to this heading">#</a></h4>
+<p>A list of the names of the resource’s required input properties.</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="stateinputs">
+<h4><code class="docutils literal notranslate"><span class="pre">stateInputs</span></code><a class="headerlink" href="#stateinputs" title="Link to this heading">#</a></h4>
+<p>An optional objectTypeSpec that describes additional inputs that mau be necessary to get an existing resource. If this is unset, only an ID is necessary.</p>
+<p><a class="reference internal" href="#object-type-details"><span class="xref myst">Object Type Details</span></a></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="token">
+<h2>Token<a class="headerlink" href="#token" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Pattern: <code class="docutils literal notranslate"><span class="pre">^[a-zA-Z][-a-zA-Z0-9_]*:([^0-9][a-zA-Z0-9._/-]*)?:[^0-9][a-zA-Z0-9._/]*$</span></code></p>
+</section>
+<section id="type-definition">
+<h2>Type Definition<a class="headerlink" href="#type-definition" title="Link to this heading">#</a></h2>
+<p>Describes an object or enum type.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>One of:</p>
+<section id="id35">
+<h3>Properties<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="id36">
+<h4><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#id36" title="Link to this heading">#</a></h4>
+<p>The description of the type, if any. Interpreted as Markdown.</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id37">
+<h4><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code><a class="headerlink" href="#id37" title="Link to this heading">#</a></h4>
+<p>Indicates that the implementation of the type should not be generated from the schema, and is instead provided out-of-band by the package author</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="id38">
+<h4><code class="docutils literal notranslate"><span class="pre">language</span></code><a class="headerlink" href="#id38" title="Link to this heading">#</a></h4>
+<p>Additional language-specific data about the type.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="type-reference">
+<h2>Type Reference<a class="headerlink" href="#type-reference" title="Link to this heading">#</a></h2>
+<p>A reference to a type. The particular kind of type referenced is determined based on the contents of the “type” property and the presence or absence of the “additionalProperties”, “items”, “oneOf”, and “$ref” properties.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>One of:</p>
+<section id="id39">
+<h3>Properties<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="plain">
+<h4><code class="docutils literal notranslate"><span class="pre">plain</span></code><a class="headerlink" href="#plain" title="Link to this heading">#</a></h4>
+<p>Indicates that when used as an input, this type does not accept eventual values.</p>
+<p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="union-type">
+<h2>Union Type<a class="headerlink" href="#union-type" title="Link to this heading">#</a></h2>
+<p>A reference to a union type. The “oneOf” property must be present. The union may additional specify an underlying primitive type via the “type” property and a discriminator via the “discriminator” property. No other properties may be present.</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id40">
+<h3>Properties<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="discriminator">
+<h4><code class="docutils literal notranslate"><span class="pre">discriminator</span></code><a class="headerlink" href="#discriminator" title="Link to this heading">#</a></h4>
+<p>Informs the consumer of an alternative schema based on the value associated with it</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="id41">
+<h5>Properties<a class="headerlink" href="#id41" title="Link to this heading">#</a></h5>
+<hr class="docutils" />
+<section id="mapping">
+<h6><code class="docutils literal notranslate"><span class="pre">mapping</span></code><a class="headerlink" href="#mapping" title="Link to this heading">#</a></h6>
+<p>an optional object to hold mappings between payload values and schema names or references</p>
+<p><code class="docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Additional properties: <code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</section>
+<hr class="docutils" />
+<section id="propertyname-required">
+<h6><code class="docutils literal notranslate"><span class="pre">propertyName</span></code> (<em>required</em>)<a class="headerlink" href="#propertyname-required" title="Link to this heading">#</a></h6>
+<p>PropertyName is the name of the property in the payload that will hold the discriminator value</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="oneof-required">
+<h4><code class="docutils literal notranslate"><span class="pre">oneOf</span></code> (<em>required</em>)<a class="headerlink" href="#oneof-required" title="Link to this heading">#</a></h4>
+<p>If present, indicates that values of the type may be one of any of the listed types</p>
+<p><code class="docutils literal notranslate"><span class="pre">array</span></code></p>
+<p>Items: <a class="reference internal" href="#type-reference"><span class="xref myst">Type Reference</span></a></p>
+</section>
+<hr class="docutils" />
+<section id="id42">
+<h4><code class="docutils literal notranslate"><span class="pre">type</span></code><a class="headerlink" href="#id42" title="Link to this heading">#</a></h4>
+<p>The underlying primitive type of the union, if any</p>
+<p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+<p>Enum: <code class="docutils literal notranslate"><span class="pre">&quot;boolean&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;integer&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;number&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;string&quot;</span></code></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attribution"><code class="docutils literal notranslate"><span class="pre">attribution</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config"><code class="docutils literal notranslate"><span class="pre">config</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#required"><code class="docutils literal notranslate"><span class="pre">required</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#variables"><code class="docutils literal notranslate"><span class="pre">variables</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displayname"><code class="docutils literal notranslate"><span class="pre">displayName</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions"><code class="docutils literal notranslate"><span class="pre">functions</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#homepage"><code class="docutils literal notranslate"><span class="pre">homepage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keywords"><code class="docutils literal notranslate"><span class="pre">keywords</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#language"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#license"><code class="docutils literal notranslate"><span class="pre">license</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logourl"><code class="docutils literal notranslate"><span class="pre">logoUrl</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meta"><code class="docutils literal notranslate"><span class="pre">meta</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#moduleformat-required"><code class="docutils literal notranslate"><span class="pre">moduleFormat</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-required"><code class="docutils literal notranslate"><span class="pre">name</span></code> (<em>required</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plugindownloadurl"><code class="docutils literal notranslate"><span class="pre">pluginDownloadUrl</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#provider"><code class="docutils literal notranslate"><span class="pre">provider</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#publisher"><code class="docutils literal notranslate"><span class="pre">publisher</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repository"><code class="docutils literal notranslate"><span class="pre">repository</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources"><code class="docutils literal notranslate"><span class="pre">resources</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types"><code class="docutils literal notranslate"><span class="pre">types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias-definition">Alias Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#type"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array-type">Array Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#items-required"><code class="docutils literal notranslate"><span class="pre">items</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#type-required"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-type-definition">Enum Type Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-required"><code class="docutils literal notranslate"><span class="pre">enum</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-value-definition">Enum Value Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecationmessage"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#value-required"><code class="docutils literal notranslate"><span class="pre">value</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definition">Function Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inputs"><code class="docutils literal notranslate"><span class="pre">inputs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isoverlay"><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs"><code class="docutils literal notranslate"><span class="pre">outputs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-type">Map Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additionalproperties"><code class="docutils literal notranslate"><span class="pre">additionalProperties</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-type">Named Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ref-required"><code class="docutils literal notranslate"><span class="pre">$ref</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-type-definition">Object Type Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-type-details">Object Type Details</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">properties</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">required</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-type">Primitive Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">type</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#property-definition">Property Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#const"><code class="docutils literal notranslate"><span class="pre">const</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default"><code class="docutils literal notranslate"><span class="pre">default</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defaultinfo"><code class="docutils literal notranslate"><span class="pre">defaultInfo</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-required"><code class="docutils literal notranslate"><span class="pre">environment</span></code> (<em>required</em>)</a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#replaceonchanges"><code class="docutils literal notranslate"><span class="pre">replaceOnChanges</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#willreplaceonchanges"><code class="docutils literal notranslate"><span class="pre">willReplaceOnChanges</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#secret"><code class="docutils literal notranslate"><span class="pre">secret</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-definition">Resource Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aliases"><code class="docutils literal notranslate"><span class="pre">aliases</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32"><code class="docutils literal notranslate"><span class="pre">deprecationMessage</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inputproperties"><code class="docutils literal notranslate"><span class="pre">inputProperties</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#iscomponent"><code class="docutils literal notranslate"><span class="pre">isComponent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34"><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaysupportedlanguages"><code class="docutils literal notranslate"><span class="pre">overlaySupportedLanguages</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#methods"><code class="docutils literal notranslate"><span class="pre">methods</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#requiredinputs"><code class="docutils literal notranslate"><span class="pre">requiredInputs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stateinputs"><code class="docutils literal notranslate"><span class="pre">stateInputs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#token">Token</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-definition">Type Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id36"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id37"><code class="docutils literal notranslate"><span class="pre">isOverlay</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id38"><code class="docutils literal notranslate"><span class="pre">language</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-reference">Type Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plain"><code class="docutils literal notranslate"><span class="pre">plain</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#union-type">Union Type</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#discriminator"><code class="docutils literal notranslate"><span class="pre">discriminator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#mapping"><code class="docutils literal notranslate"><span class="pre">mapping</span></code></a></li>
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#propertyname-required"><code class="docutils literal notranslate"><span class="pre">propertyName</span></code> (<em>required</em>)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oneof-required"><code class="docutils literal notranslate"><span class="pre">oneOf</span></code> (<em>required</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pulumi engineering
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Pulumi 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
